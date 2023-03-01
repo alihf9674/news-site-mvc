@@ -1,0 +1,6 @@
+{
+    "require": {
+        "morilog/jalali": "3.*",
+        "symfony/translation-contracts": "^1.1.6"
+    }
+}
