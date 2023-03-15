@@ -22,9 +22,9 @@ $this->include('admin.layouts.sidebar');
             </tr>
             </thead>
             <tbody>
-            <?php $i = 0;
+            <?php $i = 1;
             foreach ($categories as $category) {
-                $i++;
+
                 ?>
                 <tr>
                     <td> <?= $i ?> </td>
@@ -36,7 +36,8 @@ $this->include('admin.layouts.sidebar');
                            class="btn btn-sm btn-danger my-0 mx-1 text-white">delete</a>
                     </td>
                 </tr>
-                <?php } ?>
+                <?php $i++;
+            } ?>
             </tbody>
         </table>
     </div>

@@ -23,7 +23,7 @@ $this->include('admin.layouts.sidebar');
             <th>setting</th>
         </tr>
         </thead>
-        <?php $i = 0;
+        <?php $i = 1;
         foreach ($users as $user) {
             ?>
             <tbody>
@@ -35,13 +35,18 @@ $this->include('admin.layouts.sidebar');
                 <td><?= $user['permission'] ?></td>
                 <td><?= convertToJalaliDate($user['created_at']) ?></td>
                 <td>
-                    <?php if($user['permission'] == 'user') { ?>
-                        <a role="button" class="btn btn-sm btn-success text-white" href="<?= $this->url('admin/user/change-permission/' . $user['id']) ?>">click to be admin</a>
-                    <?php } else {  ?>
-                    <a role="button" class="btn btn-sm btn-light text-black" href="<?= $this->url('admin/user/change-permission/' . $user['id']) ?>">click not to be user</a>
+                    <?php if ($user['permission'] == 'user') { ?>
+                        <a role="button" class="btn btn-sm btn-outline-warning"
+                           href="<?= $this->url('admin/user/change-permission/' . $user['id']) ?>">click to be admin</a>
+                    <?php } else { ?>
+                        <a role="button" class="btn btn-sm btn-light text-black"
+                           href="<?= $this->url('admin/user/change-permission/' . $user['id']) ?>">click not to be
+                            user</a>
                     <?php } ?>
-                    <a role="button" class="btn btn-sm btn-primary text-white" href="<?= $this->url('admin/user/edit/' . $user['id']) ?>">edit</a>
-                    <a role="button" class="btn btn-sm btn-danger text-white" href="<?= $this->url('admin/user/delete/' . $user['id']) ?>"">delete</a>
+                    <a role="button" class="btn btn-sm btn-primary text-white"
+                       href="<?= $this->url('admin/user/edit/' . $user['id']) ?>">edit</a>
+                    <a role="button" class="btn btn-sm btn-danger text-white"
+                       href="<?= $this->url('admin/user/delete/' . $user['id']) ?>"">delete</a>
                 </td>
             </tr>
             </tbody>

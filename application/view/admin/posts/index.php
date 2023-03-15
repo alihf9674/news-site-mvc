@@ -26,9 +26,9 @@ $this->include('admin.layouts.sidebar');
         </thead>
         <tbody>
         <?php
-        $i = 0;
+        $i = 1;
         foreach ($posts as $post) {
-            $i++;
+
             ?>
             <tr>
                 <td>
@@ -69,7 +69,8 @@ $this->include('admin.layouts.sidebar');
                        href="<?= $this->url('admin/post/delete/' . $post['id']) ?>">delete</a>
                 </td>
             </tr>
-        <?php } ?>
+            <?php $i++;
+        } ?>
         </tbody>
     </table>
 <?php

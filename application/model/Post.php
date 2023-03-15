@@ -4,11 +4,7 @@ namespace Application\Model;
 
 class Post extends Model
 {
-      public function find($id)
-      {
-            return $this->select('SELECT * FROM `posts` WHERE `id` = ?', [$id])->fetch();
-      }
-
+    public $tableName = "`posts`";
       public function getPostsInfo()
       {
             return $this->select('SELECT `posts`.*, `categories`.`name` AS category_name, `users`.`username` AS user_name FROM `posts`

@@ -2,15 +2,18 @@
 
 namespace Application\Controllers;
 
-use Database\CreateDB;
 use Application\Model\Category as CategoryModel;
 
 class Category extends Controller
 {
       public function index()
-      {     
-            $categories = new CategoryModel();
-            $categories = $categories->all();
+      {
+
+            $categoriesModel = new CategoryModel();
+
+            $categories = $categoriesModel->all();
+
+
             return $this->view('admin.categories.index', compact('categories'));
       }
 

@@ -21,23 +21,26 @@ $this->include('admin.layouts.sidebar');
         </thead>
         <?php $i = 1;
         foreach ($banners as $banner) {
-        ?>
-        <tbody>
-        <tr>
-            <td>
-                <?= $i ?>
-            </td>
-            <td>
-                <?= $banner['url'] ?>
-            </td>
-            <td><img style="width: 80px;" src="<?= $this->asset($banner['image']) ?>"></td>
-            <td>
-                <a role="button" class="btn btn-sm btn-primary text-white" href="<?= $this->url('admin/banner/edit/' . $banner['id']) ?>">edit</a>
-                <a role="button" class="btn btn-sm btn-danger text-white" href="<?= $this->url('admin/banner/delete/' . $banner['id']) ?>">delete</a>
-            </td>
-        </tr>
-        </tbody>
-        <?php $i++; } ?>
+            ?>
+            <tbody>
+            <tr>
+                <td>
+                    <?= $i ?>
+                </td>
+                <td>
+                    <?= $banner['url'] ?>
+                </td>
+                <td><img style="width: 80px;" src="<?= $this->asset($banner['image']) ?>"></td>
+                <td>
+                    <a role="button" class="btn btn-sm btn-primary text-white"
+                       href="<?= $this->url('admin/banner/edit/' . $banner['id']) ?>">edit</a>
+                    <a role="button" class="btn btn-sm btn-danger text-white"
+                       href="<?= $this->url('admin/banner/delete/' . $banner['id']) ?>">delete</a>
+                </td>
+            </tr>
+            </tbody>
+            <?php $i++;
+        } ?>
     </table>
 </div>
 <
