@@ -34,4 +34,10 @@ uri('admin/user/change-permission/{id}', 'Application\Controllers\User', 'change
 
 //comments
 uri('admin/comment', 'Application\Controllers\Comment', 'index');
+uri('admin/comment/show/{id}', 'Application\Controllers\Comment', 'show');
+uri('admin/comment/change-status/{id}', 'Application\Controllers\Comment', 'changeStatus');
 
+//menus
+uri('admin/menu', 'Application\Controllers\Menu', 'index');
+uri('admin/menu/create', 'Application\Controllers\Menu', 'create');
+uri('admin/menu/store', 'Application\Controllers\Menu', 'store', 'POST');

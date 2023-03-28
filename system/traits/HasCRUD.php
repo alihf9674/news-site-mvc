@@ -41,7 +41,6 @@ trait HasCRUD
     public function update($tableName, $id, $fields, $values)
     {
         $sql = "UPDATE " . $tableName . " SET";
-
         foreach (array_combine($fields, $values) as $field => $value) {
             if ($value)
                 $sql .= " `" . $field . "` = ? ,";

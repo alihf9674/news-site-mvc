@@ -16,4 +16,17 @@ class Comment extends Controller
         }
         return $this->view('admin.comments.index', compact('comments'));
     }
+
+    public function show($id)
+    {
+        $comment = (new CommentModel())->getComment($id);
+        return $this->view('admin.comments.show', compact('comment'));
+    }
+
+    public function changeStatus($id)
+    {
+        $commentModel = new CommentModel();
+        $commentModel->changeStatus($id);
+        $this->back();
+    }
 }

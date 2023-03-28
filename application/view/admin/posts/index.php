@@ -60,7 +60,7 @@ $this->include('admin.layouts.sidebar');
                     </a>
                     <a role="button" class="btn btn-sm btn-outline-success text-black"
                        href="<?= $this->url('admin/post/selected/' . $post['id']) ?>">
-                        <?= $post['selected'] == 1 ? "remove selcted" : "add selected" ?>
+                        <?= $post['selected'] == 1 ? "remove selected" : "add selected" ?>
                     </a>
                     <hr class="my-1"/>
                     <a role="button" class="btn btn-sm btn-primary text-white active"

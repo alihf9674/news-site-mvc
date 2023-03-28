@@ -11,8 +11,8 @@ $this->include('admin.layouts.sidebar');
             <thead>
             <tr>
                 <th>row</th>
-                <th>user ID</th>
-                <th>post ID</th>
+                <th>user call</th>
+                <th>post title</th>
                 <th>comment</th>
                 <th>status</th>
                 <th>setting</th>
@@ -38,9 +38,15 @@ $this->include('admin.layouts.sidebar');
                         <?= $comment['status'] ?>
                     </td>
                     <td>
-                        <a role="button" class="btn btn-sm btn btn-outline-success" href="">approved</a>
-                        <a role="button" class="btn btn-sm btn btn-outline-info" href="">show</a>
-                        <a role="button" class="btn btn-sm btn-outline-danger" href="">not be approved</a>
+                        <a role="button" class="btn btn-sm btn btn-outline-info" href="<?= $this->url('admin/comment/show/' . $comment['id']) ?>">show</a>
+                        <?php if ($comment['status'] == 'approved') { ?>
+                            <a role="button" class="btn btn-sm btn-outline-danger"
+                               href="<?= $this->url('admin/comment/change-status/' . $comment['id']) ?>">not be
+                                approved</a>
+                        <?php } else { ?>
+                            <a role="button" class="btn btn-sm btn btn-outline-success"
+                               href="<?= $this->url('admin/comment/change-status/' . $comment['id']) ?>">approved</a>
+                        <?php } ?>
                     </td>
                 </tr>
                 </tbody>
@@ -49,5 +55,5 @@ $this->include('admin.layouts.sidebar');
         </table>
     </section>
 <?php
-
+$this->include('admin.layouts.footer');
 ?>
