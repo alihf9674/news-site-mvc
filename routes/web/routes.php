@@ -41,3 +41,11 @@ uri('admin/comment/change-status/{id}', 'Application\Controllers\Comment', 'chan
 uri('admin/menu', 'Application\Controllers\Menu', 'index');
 uri('admin/menu/create', 'Application\Controllers\Menu', 'create');
 uri('admin/menu/store', 'Application\Controllers\Menu', 'store', 'POST');
+uri('admin/menu/edit/{$id}', 'Application\Controllers\Menu', 'edit');
+uri('admin/menu/update/{$id}', 'Application\Controllers\Menu', 'update', 'POST');
+uri('admin/menu/delete/{$id}', 'Application\Controllers\Menu', 'delete' );
+
+//setting
+uri('admin/setting', 'Application\Controllers\Setting','index');
+uri('admin/setting/edit/{$id}', 'Application\Controllers\Setting', 'edit');
+uri('admin/setting/update/{$id}', 'Application\Controllers\Setting', 'update', 'POST');

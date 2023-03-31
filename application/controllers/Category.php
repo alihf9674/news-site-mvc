@@ -8,12 +8,8 @@ class Category extends Controller
 {
       public function index()
       {
-
             $categoriesModel = new CategoryModel();
-
             $categories = $categoriesModel->all();
-
-
             return $this->view('admin.categories.index', compact('categories'));
       }
 

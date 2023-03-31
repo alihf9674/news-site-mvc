@@ -38,8 +38,8 @@ $this->include('admin.layouts.sidebar');
                     <?= $menu['parent_name'] == null ? 'منوی اصلی' : $menu['parent_name']?>
                 </td>
                 <td>
-                    <a role="button" class="btn btn-sm btn-primary text-white" href="">edit</a>
-                    <a role="button" class="btn btn-sm btn-danger text-white" href="">delete</a>
+                    <a role="button" class="btn btn-sm btn-primary text-white" href="<?= $this->url('admin/menu/edit/'. $menu['id']) ?>">edit</a>
+                    <a role="button" class="btn btn-sm btn-danger text-white" href="<?= $this->url('admin/menu/delete/'. $menu['id']) ?>">delete</a>
                 </td>
             </tr>
             </tbody>
