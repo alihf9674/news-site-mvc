@@ -47,5 +47,5 @@ uri('admin/menu/delete/{$id}', 'Application\Controllers\Menu', 'delete' );
 
 //setting
 uri('admin/setting', 'Application\Controllers\Setting','index');
-uri('admin/setting/edit/{$id}', 'Application\Controllers\Setting', 'edit');
-uri('admin/setting/update/{$id}', 'Application\Controllers\Setting', 'update', 'POST');
+uri('admin/setting/edit', 'Application\Controllers\Setting', 'edit');
+uri('admin/setting/update', 'Application\Controllers\Setting', 'update', 'POST');
