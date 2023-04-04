@@ -10,7 +10,7 @@ trait HasView
             if ($vars)
                   extract($vars);
 
-            $path = BASE_PATH . "/application/view/" . $dir . ".php";
+            $path = BASE_PATH . "/application/View/" . $dir . ".php";
             if (file_exists($path)) return require_once $path;
             else echo "Could not find {$dir}";
       }
@@ -26,7 +26,7 @@ trait HasView
             if ($vars)
                   extract($vars);
 
-            $path = BASE_PATH . "/application/view/" . $dir . ".php";
+            $path = BASE_PATH . "/application/View/" . $dir . ".php";
             if (file_exists($path)) return require_once $path;
             else echo "Could not find {$dir}";
       }

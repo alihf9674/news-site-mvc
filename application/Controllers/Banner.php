@@ -3,12 +3,12 @@
 namespace Application\Controllers;
 
 use Application\Model\Banner as BannerModel;
-use System\Traits\HasImage;
+use System\Services\image\BannerImageService as SaveImage;
 use System\Traits\HasPostController;
 
 class Banner extends Controller
 {
-    use HasImage, HasPostController;
+    use HasPostController;
 
     public function index()
     {
@@ -25,7 +25,9 @@ class Banner extends Controller
     public function store($data)
     {
         if (filter_var($data['url'], FILTER_VALIDATE_URL) && $this->imageTypeFilter($data['image'])) {
-            $data['image'] = $this->saveBanner($data['image']);
+
+            $data['image'] = (new SaveImage)->save($data['image']);
+
             if ($data['image']) {
 
                 $bannerModel = new BannerModel();
@@ -52,8 +54,8 @@ class Banner extends Controller
         if (filter_var($data['url'], FILTER_VALIDATE_URL) && $this->imageTypeFilter($data['image'])) {
             if (!is_null($data['image']['tmp_name'])) {
                 $previousData = $bannerModel->find($id);
-                $this->removeImage($previousData['image']);
-                $data['image'] = $this->saveBanner($data['image']);
+                (new SaveImage)->unset($previousData['image']);
+                $data['image'] = (new SaveImage)->save($data['image']);
             } else {
                 unset($data['image']);
             }
@@ -65,10 +67,10 @@ class Banner extends Controller
 
     public function delete($id)
     {
-       $bannerModel = new BannerModel();
-       $banner = $bannerModel->find($id);
-       $this->removeImage($banner['image']);
-       $bannerModel->delete('banners', $id);
-       $this->back();
+        $bannerModel = new BannerModel();
+        $banner = $bannerModel->find($id);
+        (new SaveImage)->unset($banner['image']);
+        $bannerModel->delete('banners', $id);
+        $this->back();
     }
 }

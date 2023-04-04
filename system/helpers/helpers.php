@@ -25,7 +25,7 @@ function uri($reservedUrl, $class, $method, $requestMethod = 'GET')
         return false;
     }
 
-    $path = dirname(dirname(__FILE__)) . "../../application/controllers/" . $currentUrlArray[1] . ".php";
+    $path = dirname(dirname(__FILE__)) . "../../application/Controllers/" . $currentUrlArray[1] . ".php";
     if (!file_exists($path)) {
         echo "404 - file not exist!";
         exit;

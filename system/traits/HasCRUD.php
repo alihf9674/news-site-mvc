@@ -3,7 +3,7 @@
 namespace System\Traits;
 
 use PDOException;
-use Database\DBConnection;
+use System\Database\DBConnection;
 
 trait HasCRUD
 {

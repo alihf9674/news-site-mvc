@@ -7,7 +7,7 @@ $this->include('admin.layouts.sidebar');
 </section>
 <section class="row my-3">
     <section class="col-12">
-        <form method="post" action="" enctype="multipart/form-data">
+        <form method="post" action="<?= $this->url('admin/setting/update') ?>" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" name="title" placeholder="Enter title ..." value="" autofocus>

@@ -314,7 +314,7 @@ body[data-editor='InlineEditor'] .collaboration-demo__row {
 
 /* --------- PAGINATION FEATURE ------------------------------------------------------------------------------------ */
 
-/* Pagination view line must be stacked at least at the same level as the editor,
+/* Pagination View line must be stacked at least at the same level as the editor,
    otherwise it will be hidden underneath. */
 .ck.ck-pagination-view-line {
 	z-index: var(--ck-sample-editor-z-index);
