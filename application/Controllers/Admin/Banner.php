@@ -1,8 +1,9 @@
 <?php
 
-namespace Application\Controllers;
+namespace Application\Controllers\admin;
 
 use Application\Model\Banner as BannerModel;
+use Application\Controllers\controller;
 use System\Services\image\BannerImageService as SaveImage;
 use System\Traits\HasPostController;
 
@@ -12,8 +13,7 @@ class Banner extends Controller
 
     public function index()
     {
-        $bannerModel = new BannerModel();
-        $banners = $bannerModel->all();
+        $banners = BannerModel::all();
         return $this->view('admin.banners.index', compact('banners'));
     }
 
@@ -29,9 +29,7 @@ class Banner extends Controller
             $data['image'] = (new SaveImage)->save($data['image']);
 
             if ($data['image']) {
-
-                $bannerModel = new BannerModel();
-                $bannerModel->insert('banners', array_keys($data), array_values($data));
+                BannerModel::insert('banners', array_keys($data), array_values($data));
                 $this->redirect('admin/banner');
             } else {
                 $this->redirect('admin/banner');
@@ -43,23 +41,22 @@ class Banner extends Controller
 
     public function edit($id)
     {
-        $bannerModel = new BannerModel();
-        $banner = $bannerModel->find($id);
+        $banner = BannerModel::find($id);
         return $this->view('admin.banners.edit', compact('banner'));
     }
 
     public function update($id, $data)
     {
-        $bannerModel = new BannerModel();
+
         if (filter_var($data['url'], FILTER_VALIDATE_URL) && $this->imageTypeFilter($data['image'])) {
             if (!is_null($data['image']['tmp_name'])) {
-                $previousData = $bannerModel->find($id);
+                $previousData = BannerModel::find($id);
                 (new SaveImage)->unset($previousData['image']);
                 $data['image'] = (new SaveImage)->save($data['image']);
             } else {
                 unset($data['image']);
             }
-            $bannerModel->update('banners', $id, array_keys($data), array_values($data));
+            BannerModel::update('banners', $id, array_keys($data), array_values($data));
             $this->redirect('admin/banner');
         }
         $this->redirect('admin/banner');
@@ -67,10 +64,9 @@ class Banner extends Controller
 
     public function delete($id)
     {
-        $bannerModel = new BannerModel();
-        $banner = $bannerModel->find($id);
+        $banner = BannerModel::find($id);
         (new SaveImage)->unset($banner['image']);
-        $bannerModel->delete('banners', $id);
+        BannerModel::delete('banners', $id);
         $this->back();
     }
 }

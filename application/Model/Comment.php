@@ -4,33 +4,34 @@ namespace Application\Model;
 
 class Comment extends Model
 {
-    public $tableName = "`comments`";
+    protected $tableName = "`comments`";
 
-    public function getComments()
+
+    public function getCommentsMethod()
     {
-        return $this->select('SELECT `comments`.*, `posts`.`title` AS post_title, `users`.`user_call` AS user_call FROM `comments`
+        return $this->selectMethod('SELECT `comments`.*, `posts`.`title` AS post_title, `users`.`user_call` AS user_call FROM `comments`
         LEFT JOIN `posts` ON `comments`.`post_id` = `posts`.`id`
         LEFT JOIN `users` ON `comments`.`user_id` = `users`.`id` ORDER BY `id` DESC')->fetchAll();
     }
 
-    public function getUnseenComments()
+    public function getUnseenCommentsMethod()
     {
-        return $this->select('SELECT * FROM `comments` WHERE `status` = ?', ['unseen'])->fetchAll();
+        return $this->selectMethod('SELECT * FROM `comments` WHERE `status` = ?', ['unseen'])->fetchAll();
     }
 
-    public function changeStatus($id)
+    public function changeStatusMethod($id)
     {
-        $comment = $this->find($id);
+        $comment = $this->findMethod($id);
 
         if ($comment['status'] == 'seen')
-            $this->update('comments', $id, ['status'], ['approved']);
+            $this->updateMethod('comments', $id, ['status'], ['approved']);
         else
-            $this->update('comments', $id, ['status'], ['seen']);
+            $this->updateMethod('comments', $id, ['status'], ['seen']);
     }
 
-    public function getComment($id)
+    public function getCommentMethod($id)
     {
-        return $this->select('SELECT `comments`.*, (SELECT `title` FROM `posts` WHERE `comments`.`post_id` = `posts`.`id`)AS post_titles , 
+        return $this->selectMethod('SELECT `comments`.*, (SELECT `title` FROM `posts` WHERE `comments`.`post_id` = `posts`.`id`)AS post_titles , 
         (SELECT `user_call` FROM `users` WHERE `comments`.`user_id` = `users`.`id`)AS user_call, 
         (SELECT `username` FROM  `users` WHERE `comments`.`user_id` = `users`.`id`) AS username 
         FROM `comments` WHERE `id` = ?', [$id])->fetch();

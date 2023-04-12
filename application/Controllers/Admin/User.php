@@ -1,14 +1,15 @@
 <?php
 
-namespace Application\Controllers;
+namespace Application\Controllers\admin;
 
 use Application\Model\User as UserModel;
+use Application\Controllers\controller;
 
 class User extends Controller
 {
     public function index()
     {
-        $users = (new UserModel())->all();
+        $users = UserModel::all();
         return $this->view('admin.users.index', compact('users'));
     }
 
@@ -19,9 +20,8 @@ class User extends Controller
 
     public function store($data)
     {
-        $userModel = new UserModel();
-        if (userPhoneNumberRegEx($data['user_call'])) {
-            $userModel->insert('users', array_keys($data), array_values($data));
+        if (ifUserPhoneNumberRegEx($data['user_call'])) {
+            UserModel::insert('users', array_keys($data), array_values($data));
             $this->redirect('admin/user');
         }
         $this->back();
@@ -29,16 +29,14 @@ class User extends Controller
 
     public function edit($id)
     {
-        $userModel = new UserModel();
-        $user = $userModel->find($id);
+        $user = UserModel::find($id);
         return $this->view('admin.users.edit', compact('user'));
     }
 
     public function update($data, $id)
     {
-        $userModel = new UserModel();
-        if (userPhoneNumberRegEx($data['user_call'])) {
-            $userModel->update('users', $id, array_keys($data), array_values($data));
+        if (ifUserPhoneNumberRegEx($data['user_call'])) {
+            UserModel::update('users', $id, array_keys($data), array_values($data));
             $this->redirect('admin/user');
         }
         $this->back();
@@ -46,20 +44,18 @@ class User extends Controller
 
     public function delete($id)
     {
-        $userModel = new UserModel();
-        $userModel->delete('users', $id);
+        UserModel::delete('users', $id);
         $this->back();
     }
 
     public function changePermission($id)
     {
-        $userModel = new UserModel();
-        $user = $userModel->find($id);
+        $user = UserModel::find($id);
         if (!empty($user)) {
             if ($user['permission'] == 'admin')
-                $userModel->update('users', $id, ['permission'], ['user']);
+                UserModel::update('users', $id, ['permission'], ['user']);
             else
-                $userModel->update('users', $id, ['permission'], ['admin']);
+                UserModel::update('users', $id, ['permission'], ['admin']);
         }
         $this->back();
     }

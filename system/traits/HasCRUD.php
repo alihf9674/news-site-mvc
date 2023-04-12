@@ -7,7 +7,7 @@ use System\Database\DBConnection;
 
 trait HasCRUD
 {
-    public function select($sql, $values = null)
+    protected function selectMethod($sql, $values = null)
     {
         try {
             $statement = (new DBConnection)->connection->prepare($sql);
@@ -23,7 +23,7 @@ trait HasCRUD
         }
     }
 
-    public function insert($tableName, $fields, $values)
+    protected function insertMethod($tableName, $fields, $values)
     {
         try {
             $statement = (new DBConnection)->connection->prepare("INSERT INTO " . $tableName . " ("
@@ -38,7 +38,7 @@ trait HasCRUD
         }
     }
 
-    public function update($tableName, $id, $fields, $values)
+    protected function updateMethod($tableName, $id, $fields, $values)
     {
         $sql = "UPDATE " . $tableName . " SET";
         foreach (array_combine($fields, $values) as $field => $value) {
@@ -60,7 +60,7 @@ trait HasCRUD
         }
     }
 
-    public function delete($tableName, $id)
+    protected function deleteMethod($tableName, $id)
     {
         $sql = "DELETE FROM " . $tableName . " WHERE id = ?";
         try {
@@ -73,14 +73,13 @@ trait HasCRUD
         }
     }
 
-    public function all()
+    protected function allMethod()
     {
-        return $this->select('SELECT * FROM ' . "$this->tableName");
+        return $this->selectMethod('SELECT * FROM ' . "$this->tableName");
     }
 
-    public function find($id)
+    protected function findMethod($id)
     {
-        return $this->select('SELECT * FROM ' . "$this->tableName" . 'WHERE id =?', [$id])->fetch();
+        return $this->selectMethod('SELECT * FROM ' . "$this->tableName" . 'WHERE id =?', [$id])->fetch();
     }
-
 }

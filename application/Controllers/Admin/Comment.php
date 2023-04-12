@@ -1,32 +1,31 @@
 <?php
 
-namespace Application\Controllers;
+namespace Application\Controllers\admin;
 
 use Application\Model\Comment as CommentModel;
+use Application\Controllers\controller;
 
 class Comment extends Controller
 {
     public function index()
     {
-        $commentsModel = new CommentModel();
-        $comments = $commentsModel->getComments();
-        $unseenComments = $commentsModel->getUnseenComments();
+        $comments = CommentModel::getComments();
+        $unseenComments = CommentModel::getUnseenComments();
         foreach ($unseenComments as $unseenComment) {
-            $commentsModel->update('comments', $unseenComment['id'], ['status'], ['seen']);
+            CommentModel::update('comments', $unseenComment['id'], ['status'], ['seen']);
         }
         return $this->view('admin.comments.index', compact('comments'));
     }
 
     public function show($id)
     {
-        $comment = (new CommentModel())->getComment($id);
+        $comment = CommentModel::getComment($id);
         return $this->view('admin.comments.show', compact('comment'));
     }
 
     public function changeStatus($id)
     {
-        $commentModel = new CommentModel();
-        $commentModel->changeStatus($id);
+        CommentModel::changeStatus($id);
         $this->back();
     }
 }

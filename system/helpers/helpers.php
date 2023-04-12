@@ -1,5 +1,4 @@
 <?php
-
 function dd($var)
 {
     echo "<pre>";
@@ -21,17 +20,8 @@ function uri($reservedUrl, $class, $method, $requestMethod = 'GET')
     $reservedUrlArray = explode('/', $reservedUrl);
     $reservedUrlArray = array_filter($reservedUrlArray);
 
-    if (sizeof($currentUrlArray) != sizeof($reservedUrlArray) || methodField() != $requestMethod) {
+    if (sizeof($currentUrlArray) != sizeof($reservedUrlArray) || methodField() != $requestMethod)
         return false;
-    }
-
-    $path = dirname(dirname(__FILE__)) . "../../application/Controllers/" . $currentUrlArray[1] . ".php";
-    if (!file_exists($path)) {
-        echo "404 - file not exist!";
-        exit;
-    }
-    require_once $path;
-
     $parameters = [];
     for ($key = 0; $key < sizeof($currentUrlArray); $key++) {
         if (
@@ -54,7 +44,7 @@ function uri($reservedUrl, $class, $method, $requestMethod = 'GET')
     exit();
 }
 
-function url($url)
+function url($url): string
 {
     return trim(CURRENT_DOMAIN, '/') . DIRECTORY_SEPARATOR . trim($url, '/');
 }
@@ -79,15 +69,15 @@ function methodField()
     return $_SERVER['REQUEST_METHOD'];
 }
 
-function userPhoneNumberRegEx($phoneNumber)
+function ifUserPhoneNumberRegEx($phoneNumber): bool
 {
     if (isset($phoneNumber)) {
-        if (preg_match('^(\+98|0)?9\d{9}$', $phoneNumber))
-            return true;
+        return preg_match('/^[0-9]{10}+$/', $phoneNumber);
     }
     return false;
 }
 
-function convertToJalaliDate($date){
+function convertToJalaliDate($date): string
+{
     return \Morilog\Jalali\Jalalian::forge($date)->format('%A, %d %B %Y H:i:s');
 }

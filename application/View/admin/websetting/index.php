@@ -21,28 +21,28 @@ $this->include('admin.layouts.sidebar');
             <tr>
                 <td>title</td>
                 <td>
-                    ss
+                   <?= $setting['title'] ?>
                 </td>
             </tr>
             <tr>
                 <td>description</td>
                 <td>
-                    sss
+                    <?= $setting['description'] ?>
                 </td>
             </tr>
             <tr>
                 <td>key words</td>
                 <td>
-                    ss
+                    <?= $setting['keywords'] ?>
                 </td>
             </tr>
             <tr>
                 <td>Logo</td>
-                <td><img src="" alt="" width="100px" height="100px"></td>
+                <td><img src="<?=$this->asset($websetting['logo']) ?>" alt="logo" width="100px" height="100px"></td>
             </tr>
             <tr>
                 <td>Icon</td>
-                <td><img src="" alt="" width="100px" height="100px"> </td>
+                <td><img src="<?= asset($websetting['icon']) ?>" alt="icon" width="100px" height="100px"> </td>
             </tr>
             </tbody>
         </table>

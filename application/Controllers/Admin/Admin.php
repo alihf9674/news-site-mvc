@@ -1,6 +1,8 @@
 <?php
 
-namespace Application\Controllers;
+namespace Application\Controllers\admin;
+
+use Application\Controllers\Controller;
 
 class Admin extends Controller
 {

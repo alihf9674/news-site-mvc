@@ -1,9 +1,10 @@
 <?php
 
-namespace Application\Controllers;
+namespace Application\Controllers\admin;
 
 use Application\Model\Post as PostModel;
 use Application\Model\category as CategoryModel;
+use Application\Controllers\controller;
 use System\Traits\HasPostController;
 use System\Services\image\PostImageService as SavePost;
 
@@ -13,16 +14,13 @@ class Post extends Controller
 
     public function index()
     {
-        $postsModel = new PostModel();
-        $posts = $postsModel->getPostsInfo();
+        $posts = PostModel::getPostsInfo();
         return $this->view('admin.posts.index', compact('posts'));
     }
 
     public function create()
     {
-        $postModel = new PostModel();
-        $categoryModel = new CategoryModel();
-        $categories = $categoryModel->all();
+        $categories = CategoryModel::all();
         return $this->view('admin.posts.create', compact('categories'));
     }
 
@@ -36,9 +34,7 @@ class Post extends Controller
                 $data['image'] = (new SavePost)->save($data['image']);
                 if ($data['image']) {
                     $data = array_merge($data, ['user_id' => 1]);
-                    $postModel = new PostModel();
-                    $postModel->insert('posts', array_keys($data), array_values($data));
-
+                    PostModel::insert('posts', array_keys($data), array_values($data));
                     $this->redirect('admin/post');
                 }
             }
@@ -48,10 +44,8 @@ class Post extends Controller
 
     public function edit($id)
     {
-        $postModel = new PostModel();
-        $categoryModel = new CategoryModel();
-        $categories = $categoryModel->all();
-        $post = $postModel->find($id);
+        $categories = CategoryModel::all();
+        $post = PostModel::find($id);
         return $this->view('admin.posts.edit', compact('post', 'categories'));
     }
 
@@ -63,12 +57,11 @@ class Post extends Controller
         if ($data['cat_id'] != null) {
             if ($this->imageTypeFilter($data['image']) && $this->timeCheck($data['published_at'])) {
                 $data['published_at'] = date("Y-m-d H:i:s", (int)$PublishedAtTimeStamp);
-                $postModel = new PostModel();
-                (new SavePost)->unset($postModel->find($id));
+                (new SavePost)->unset(PostModel::find($id));
                 $data['image'] = (new SavePost)->save($data['image']);
                 if ($data['image']) {
                     $data = array_merge($data, ['user_id' => 1]);
-                    $postModel->update('posts', $id, array_keys($data), array_values($data));
+                    PostModel::update('posts', $id, array_keys($data), array_values($data));
                     $this->redirect('admin/post');
                 }
             }
@@ -78,37 +71,34 @@ class Post extends Controller
 
     public function delete($id)
     {
-        $postModel = new PostModel();
-        $post = $postModel->find($id);
+        $post = PostModel::find($id);
         (new SavePost)->unset($post['image']);
-        $postModel->delete('posts', $id);
+        PostModel::delete('posts', $id);
         $this->back();
     }
 
     public function selected($id)
     {
-        $postModel = new PostModel();
-        $selectedPost = $postModel->find($id);
+        $selectedPost = PostModel::find($id);
 
         if (!empty($selectedPost)) {
             if ($selectedPost['selected'] == 1)
-                $postModel->update('posts', $id, ['selected'], [2]);
+                PostModel::update('posts', $id, ['selected'], [2]);
             else
-                $postModel->update('posts', $id, ['selected'], [1]);
+                PostModel::update('posts', $id, ['selected'], [1]);
         }
         $this->back();
     }
 
     public function breakingNews($id)
     {
-        $postModel = new PostModel();
-        $breakingNews = $postModel->find($id);
+        $breakingNews = PostModel::find($id);
 
         if (!empty($breakingNews)) {
             if ($breakingNews['breaking_news'] == 1)
-                $postModel->update('posts', $id, ['breaking_news'], [2]);
+                PostModel::update('posts', $id, ['breaking_news'], [2]);
             else
-                $postModel->update('posts', $id, ['breaking_news'], [1]);
+                PostModel::update('posts', $id, ['breaking_news'], [1]);
         }
         $this->back();
     }
