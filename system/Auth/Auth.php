@@ -48,7 +48,7 @@ class Auth
 
     private function loginByEmailMethod($email, $password)
     {
-        $user = User::where('email', $email)->get();
+        $user = User::getUserByEmail('email', $email)->get();
         if (empty($user)) {
             return false;
         }
@@ -56,9 +56,8 @@ class Auth
         if (password_verify($password, $user[0]->password) and $user[0]->is_active == 1) {
             Session::set('user', $user[0]->id);
             return true;
-        }
-//        else
-//            error('login', 'کلمه عبور اشتباه است');
+        } else
+            error('login', 'کلمه عبور اشتباه است');
     }
 
     private function logOutMethod()
@@ -70,7 +69,7 @@ class Auth
     {
         $user = User::find($id);
         if (empty($user)) {
-//            error('login', 'کاربر وجود ندارد');
+            error('login', 'کاربر وجود ندارد');
             return false;
         } else {
             Session::set('user', $user->id);

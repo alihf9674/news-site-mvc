@@ -20,6 +20,12 @@ class Category extends Controller
 
     public function store($data)
     {
+
+        if(empty($data['name'])){
+
+            flash('error','you must provide');
+            $this->redirect('admin/category');
+        }
         CategoryModel::insert('categories', array_keys($data), $data);
         $this->redirect('admin/category');
     }

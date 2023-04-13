@@ -81,3 +81,25 @@ function convertToJalaliDate($date): string
 {
     return \Morilog\Jalali\Jalalian::forge($date)->format('%A, %d %B %Y H:i:s');
 }
+
+function flash($name, $message = null): mixed
+{
+    if (!is_null($message))
+        $_SESSION['flash'][$name] = $message;
+    if (!isset($_SESSION['temporary_flash'][$name]))
+        return false;
+    $temporary_flash = $_SESSION['temporary_flash'][$name];
+    unset($_SESSION['temporary_flash'][$name]);
+    return $temporary_flash;
+}
+
+function error($name, $message = null): mixed
+{
+    if (!is_null($message))
+        $_SESSION['error_flash'][$name] = $message;
+    if (!isset($_SESSION['temporary_error_flash'][$name]))
+        return false;
+    $temporary_error_flash = $_SESSION['temporary_error_flash'][$name];
+    unset($_SESSION['temporary_error_flash'][$name]);
+    return $temporary_error_flash;
+}
