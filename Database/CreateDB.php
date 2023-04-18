@@ -27,7 +27,7 @@ class CreateDB extends Model
             "CREATE TABLE `users` (
                   `id` int(11) NOT NULL AUTO_INCREMENT,
                   `user_name` varchar(128) COLLATE utf8_general_ci NOT NULL,
-                  `user_call` varchar(128) COLLATE utf8_general_ci NOT NULL,
+                  `user_email` varchar(128) COLLATE utf8_general_ci NOT NULL,
                   `password` varchar(128) COLLATE utf8_general_ci NOT NULL,
                   `permission` enum('user', 'admin') COLLATE utf8_general_ci NOT NULL,
                   `user_info` text COLLATE utf8_general_ci NOT NULL,
