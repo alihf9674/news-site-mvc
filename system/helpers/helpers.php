@@ -69,10 +69,10 @@ function methodField()
     return $_SERVER['REQUEST_METHOD'];
 }
 
-function ifUserPhoneNumberRegEx($phoneNumber): bool
+function ifUserEmailRegEx($email)
 {
-    if (isset($phoneNumber)) {
-        return preg_match('/^[0-9]{10}+$/', $phoneNumber);
+    if (isset($email)) {
+        return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
     return false;
 }
@@ -82,7 +82,7 @@ function convertToJalaliDate($date): string
     return \Morilog\Jalali\Jalalian::forge($date)->format('%A, %d %B %Y H:i:s');
 }
 
-function flash($name, $message = null): mixed
+function flash($name, $message = null)
 {
     if (!is_null($message))
         $_SESSION['flash'][$name] = $message;
@@ -93,7 +93,7 @@ function flash($name, $message = null): mixed
     return $temporary_flash;
 }
 
-function error($name, $message = null): mixed
+function error($name, $message = null)
 {
     if (!is_null($message))
         $_SESSION['error_flash'][$name] = $message;
@@ -103,3 +103,38 @@ function error($name, $message = null): mixed
     unset($_SESSION['temporary_error_flash'][$name]);
     return $temporary_error_flash;
 }
+
+function successfullyMessage($message)
+{
+    return '<div class="mb-2 alert alert-success"><small class="form-text text-success">' . $message . '</small></div>';
+}
+
+function failedMessage($message): string
+{
+    return '<div class="mb-2 alert alert-danger"><small class="form-text text-danger">' . $message . '</small></div>';
+}
+
+function isValidInput($input, array $reserved_input): bool
+{
+    foreach ($input as $key => $value) {
+        if (!in_array($key, $reserved_input))
+            return false;
+    }
+    return true;
+}
+
+// it prevents invalid data from being stored
+function validateFormData($data, array $skip_validation = null): array
+{
+    $newDataArray = array();
+    foreach ($data as $key => $value) {
+        if (!is_null($skip_validation) && in_array($value, $skip_validation))
+            $newDataArray[$key] = $value;
+        else {
+            $safeData = stripslashes(trim($value));
+            $newDataArray[$key] = $safeData;
+        }
+    }
+    return $newDataArray;
+}
+
