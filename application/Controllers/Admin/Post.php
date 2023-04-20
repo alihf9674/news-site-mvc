@@ -68,16 +68,14 @@ class Post extends Controller
         $this->redirect('admin/post');
     }
 
-    public
-    function edit($id)
+    public function edit($id)
     {
         $categories = CategoryModel::all();
         $post = PostModel::find($id);
         return $this->view('admin.posts.edit', compact('post', 'categories'));
     }
 
-    public
-    function update($data, $id)
+    public function update($data, $id)
     {
         if (empty($data)) {
             flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
@@ -114,8 +112,7 @@ class Post extends Controller
         $this->redirect('admin/post');
     }
 
-    public
-    function delete($id)
+    public function delete($id)
     {
         $post = PostModel::find($id);
         (new SavePost)->unset($post['image']);
@@ -123,8 +120,7 @@ class Post extends Controller
         $this->back();
     }
 
-    public
-    function selected($id)
+    public function selected($id)
     {
         $selectedPost = PostModel::find($id);
 
@@ -137,8 +133,7 @@ class Post extends Controller
         $this->back();
     }
 
-    public
-    function breakingNews($id)
+    public function breakingNews($id)
     {
         $breakingNews = PostModel::find($id);
 
