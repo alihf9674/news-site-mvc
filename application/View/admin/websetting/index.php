@@ -42,7 +42,7 @@ $this->include('admin.layouts.sidebar');
             </tr>
             <tr>
                 <td>Icon</td>
-                <td><img src="<?= asset($websetting['icon']) ?>" alt="icon" width="100px" height="100px"> </td>
+                <td><img src="<?= $this->asset($websetting['icon']) ?>" alt="icon" width="100px" height="100px"> </td>
             </tr>
             </tbody>
         </table>
