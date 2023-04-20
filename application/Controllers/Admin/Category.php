@@ -7,6 +7,8 @@ use Application\Controllers\controller;
 
 class Category extends Controller
 {
+    private array $formInput = ['name'];
+
     public function index()
     {
         $categories = CategoryModel::all();
@@ -20,13 +22,18 @@ class Category extends Controller
 
     public function store($data)
     {
-
-        if(empty($data['name'])){
-
-            flash('error','you must provide');
-            $this->redirect('admin/category');
+        if (empty($data['name'])) {
+            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+            $this->back();
+            die;
         }
-        CategoryModel::insert('categories', array_keys($data), $data);
+        if (!isValidInput($data, $this->formInput)) {
+            flash('error', 'لطفا فیلد درست را وارد کنید.');
+            $this->back();
+            die;
+        }
+        $safeData = validateFormData($data);
+        CategoryModel::insert('categories', array_keys($safeData), array_values($safeData));
         $this->redirect('admin/category');
     }
 
@@ -36,9 +43,20 @@ class Category extends Controller
         $this->view('admin.categories.edit', compact('category'));
     }
 
-    public function update($request, $id)
+    public function update($data, $id)
     {
-        CategoryModel::update('categories', $id, array_keys($request), $request);
+        if (empty($data['name'])) {
+            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+            $this->back();
+            die;
+        }
+        if (!isValidInput($data, $this->formInput)) {
+            flash('error', 'لطفا فیلد درست را وارد کنید.');
+            $this->back();
+            die;
+        }
+        $safeData = validateFormData($data);
+        CategoryModel::update('categories', $id, array_keys($safeData), array_values($safeData));
         return $this->redirect('admin/category');
     }
 

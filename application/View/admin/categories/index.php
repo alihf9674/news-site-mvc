@@ -14,18 +14,6 @@ $this->include('admin.layouts.sidebar');
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <caption>List of categories</caption>
-
-            <?php
-            $message = flash('error');
-            if (!empty($message)) {
-                ?>
-
-                <div class="mb-2 alert alert-danger"> <small class="form-text text-danger">
-                        <?= $message ?>
-                    </small> </div>
-
-                <?php
-            } ?>
             <thead>
             <tr>
                 <th>#</th>

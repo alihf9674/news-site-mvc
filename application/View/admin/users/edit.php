@@ -4,6 +4,12 @@ $this->include('admin.layouts.sidebar');
 ?>
 <section class="pt-3 pb-1 mb-2 border-bottom">
     <h1 class="h5">Create User</h1>
+    <?php
+    $message = flash('error');
+    if (!empty($message)) {
+        echo failedMessage($message);
+    }
+    ?>
 </section>
 <section class="row my-3">
     <section class="col-12">
@@ -13,8 +19,8 @@ $this->include('admin.layouts.sidebar');
                 <input type="text" class="form-control" id="username" name="username" value="<?= $user['username'] ?>">
             </div>
             <div class="form-group">
-                <label for="user_call">Phone number</label>
-                <input type="number" class="form-control" id="user_call" name="user_call" value="<?= $user['user_call'] ?>">
+                <label for="user_call">Email</label>
+                <input type="text" class="form-control" id="user_email" name="user_email" value="<?= $user['user_call'] ?>">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>

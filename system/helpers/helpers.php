@@ -117,8 +117,10 @@ function failedMessage($message): string
 function isValidInput($input, array $reserved_input): bool
 {
     foreach ($input as $key => $value) {
-        if (!in_array($key, $reserved_input))
-            return false;
+        if (!in_array($key, $reserved_input)){
+            dd($key);
+        }
+
     }
     return true;
 }

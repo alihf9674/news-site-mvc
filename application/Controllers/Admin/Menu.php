@@ -7,6 +7,9 @@ use Application\Controllers\controller;
 
 class Menu extends Controller
 {
+    private array $formInput = ['name', 'url', 'parent_id'];
+    private array $skipValidation = ['url'];
+
     public function index()
     {
         $menus = MenuModel::getParentNameMenu();
@@ -21,8 +24,23 @@ class Menu extends Controller
 
     public function store($data)
     {
-        if (filter_var($data['url'], FILTER_VALIDATE_URL))
-            MenuModel::insert('menus', array_keys(array_filter($data)), array_values(array_filter($data)));
+        if (empty($data)) {
+            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+            $this->back();
+            die;
+        }
+        if (!isValidInput($data, $this->formInput)) {
+            flash('error', 'لطفا همه فیلد ها را به طورصحیح پر کنید.');
+            $this->back();
+            die;
+        }
+        if (!filter_var($data['url'], FILTER_VALIDATE_URL)) {
+            flash('error', 'لطفا فرمت آدرس را به طور صحیح وارد کنید.');
+            $this->back();
+            die;
+        }
+        $safeData = validateFormData($data, $this->skipValidation);
+        MenuModel::insert('menus', array_keys(array_filter($safeData)), array_values(array_filter($safeData)));
         $this->redirect('admin/menu');
     }
 
@@ -35,8 +53,23 @@ class Menu extends Controller
 
     public function update($data, $id)
     {
-        if (filter_var($data['url'], FILTER_VALIDATE_URL))
-            MenuModel::update('menus', $id, array_keys($data), array_values($data));
+        if (empty($data)) {
+            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+            $this->back();
+            die;
+        }
+        if (!isValidInput($data, $this->formInput)) {
+            flash('error', 'لطفا همه فیلد ها را به طورصحیح پر کنید.');
+            $this->back();
+            die;
+        }
+        if (!filter_var($data['url'], FILTER_VALIDATE_URL)) {
+            flash('error', 'لطفا فرمت آدرس را به طور صحیح وارد کنید.');
+            $this->back();
+            die;
+        }
+        $safeData = validateFormData($data, $this->skipValidation);
+        MenuModel::update('menus', $id, array_keys($safeData), array_values($safeData));
         $this->redirect('admin/menu');
     }
 

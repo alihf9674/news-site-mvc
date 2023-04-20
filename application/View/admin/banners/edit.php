@@ -2,9 +2,14 @@
 $this->include('admin.layouts.header');
 $this->include('admin.layouts.sidebar');
 ?>
-
 <section class="pt-3 pb-1 mb-2 border-bottom">
     <h1 class="h5">Edit Banner</h1>
+    <?php
+    $message = flash('error');
+    if (!empty($message)) {
+        echo failedMessage($message);
+    }
+    ?>
 </section>
 <section class="row my-3">
     <section class="col-12">

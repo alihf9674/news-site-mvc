@@ -7,5 +7,5 @@ use System\Traits\HasRedirect;
 
 class Controller
 {
-      use HasView, HasRedirect;
+    use HasView, HasRedirect;
 }

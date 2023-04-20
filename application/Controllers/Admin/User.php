@@ -7,6 +7,9 @@ use Application\Controllers\controller;
 
 class User extends Controller
 {
+    private array $formInput = ['username', 'user_email', 'password', 'permission'];
+    private array $skipValidation = ['user_email'];
+
     public function index()
     {
         $users = UserModel::all();
@@ -20,10 +23,24 @@ class User extends Controller
 
     public function store($data)
     {
-        if (ifUserPhoneNumberRegEx($data['user_call'])) {
-            UserModel::insert('users', array_keys($data), array_values($data));
-            $this->redirect('admin/user');
+        if (empty($data)) {
+            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+            $this->back();
+            die;
         }
+        if (!isValidInput($data, $this->formInput)) {
+            flash('error', 'لطفا همه فیلد ها را به طورصحیح پر کنید.');
+            $this->back();
+            die;
+        }
+        if (!filter_var($data['user_email'], FILTER_VALIDATE_EMAIL)) {
+            flash('error', 'لطفا فرمت ایمیل را به طور صحیح وارد کنید.');
+            $this->back();
+            die;
+        }
+        $safeData = validateFormData($data, $this->skipValidation);
+        UserModel::insert('users', array_keys($safeData), array_values($safeData));
+        $this->redirect('admin/user');
         $this->back();
     }
 
@@ -35,10 +52,25 @@ class User extends Controller
 
     public function update($data, $id)
     {
-        if (ifUserPhoneNumberRegEx($data['user_call'])) {
-            UserModel::update('users', $id, array_keys($data), array_values($data));
-            $this->redirect('admin/user');
+        if (empty($data)) {
+            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+            $this->back();
+            die;
         }
+        if (!isValidInput($data, $this->formInput)) {
+            flash('error', 'لطفا همه فیلد ها را به طورصحیح پر کنید.');
+            $this->back();
+            die;
+        }
+        if(!filter_var($data['user_email'], FILTER_VALIDATE_EMAIL)){
+            flash('error', 'لطفا فرمت ایمیل را به طور صحیح وارد کنید.');
+            $this->back();
+            die;
+        }
+        $safeData = validateFormData($data, $this->skipValidation);
+        UserModel::update('users', $id, array_keys($safeData), array_values($safeData));
+        $this->redirect('admin/user');
+
         $this->back();
     }
 
