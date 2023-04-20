@@ -42,24 +42,24 @@ class Post extends Controller
         date_default_timezone_set('Iran');
         $PublishedAtTimeStamp = $this->timeFilter($data['published_at']);
         if ($data['cat_id'] == null) {
-            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+            flash('error', 'لطفا دسته بندی مورد نظر را وارد کنید.');
             $this->back();
             die;
         }
         if (!$this->imageTypeFilter($data['image'])) {
-            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+            flash('error', 'فرمت های مجاز برای آپلود شامل این موارد میباشد : gif ,webp ,jpeg ,png, jpg');
             $this->back();
             die;
         }
         if (!$this->timeCheck($data['published_at'])) {
-            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+            flash('error', 'تاریخ باید بزرگتر از تاریخ فعلی باشد.');
             $this->back();
             die;
         }
         $data['published_at'] = date("Y-m-d H:i:s", (int)$PublishedAtTimeStamp);
         $data['image'] = (new SavePost)->save($data['image']);
         if (!$data['image']) {
-            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+            flash('error', 'عملیات آپلود عکس ناموفق بود؛ لطفا مجددا تلاش کنید.');
             $this->back();
             die;
         }
@@ -92,12 +92,12 @@ class Post extends Controller
             die;
         }
         if (!$this->imageTypeFilter($data['image'])) {
-            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+            flash('error', 'فرمت های مجاز برای آپلود شامل این موارد میباشد : gif ,webp ,jpeg ,png, jpg');
             $this->back();
             die;
         }
         if (!$this->timeCheck($data['published_at'])) {
-            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+            flash('error', 'تاریخ باید بزرگتر از تاریخ فعلی باشد.');
             $this->back();
             die;
         }
@@ -105,7 +105,7 @@ class Post extends Controller
         (new SavePost)->unset(PostModel::find($id));
         $data['image'] = (new SavePost)->save($data['image']);
         if (!$data['image']) {
-            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+            flash('error', 'عملیات آپلود عکس ناموفق بود؛ لطفا مجددا تلاش کنید.');
             $this->back();
             die;
         }
