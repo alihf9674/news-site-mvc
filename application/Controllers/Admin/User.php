@@ -41,7 +41,6 @@ class User extends Controller
         $safeData = validateFormData($data, $this->skipValidation);
         UserModel::insert('users', array_keys($safeData), array_values($safeData));
         $this->redirect('admin/user');
-        $this->back();
     }
 
     public function edit($id)
@@ -70,8 +69,6 @@ class User extends Controller
         $safeData = validateFormData($data, $this->skipValidation);
         UserModel::update('users', $id, array_keys($safeData), array_values($safeData));
         $this->redirect('admin/user');
-
-        $this->back();
     }
 
     public function delete($id)
