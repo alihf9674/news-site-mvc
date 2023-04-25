@@ -7,7 +7,7 @@ use PDOException;
 
 class DBConnection
 {
-    public $connection;
+    private $connection;
     private $options = array(
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -22,5 +22,10 @@ class DBConnection
         } catch (PDOException $e) {
             echo "Error: Your connection has same error " . $e->getMessage();
         }
+    }
+
+    public function getConnection(): PDO
+    {
+        return $this->connection;
     }
 }

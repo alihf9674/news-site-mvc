@@ -3,13 +3,13 @@
 namespace System\Traits;
 
 use PDOException;
-
+use System\Database\DBConnection;
 trait HasCreateTable
 {
       public function createTable($sql)
       {
             try {
-                  $this->connection->exec($sql);
+                (new DBConnection)->getConnection()->exec($sql);
                   return true;
             } catch (PDOException $e) {
                   echo "Error creating table: " . $e->getMessage();
