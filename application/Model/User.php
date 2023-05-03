@@ -8,6 +8,6 @@ class User extends Model
 
     public function getUserByEmailMethod($email)
     {
-        return $this->selectMethod('SELECT `user_call` FROM `users` WHERE `user_call = ?', [$email])->fetch();
+        return $this->selectMethod('SELECT `user_email` FROM `users` WHERE `user_email = ?', [$email])->fetch();
     }
 }

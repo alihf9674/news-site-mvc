@@ -14,16 +14,16 @@ $this->include('admin.layouts.sidebar');
 <section class="row my-3">
     <section class="col-12">
 
-        <form method="post" action="" enctype="multipart/form-data">
+        <form method="post" action="<?= $this->url('admin/banner/update/' . $banner['id']) ?>" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="url">Url</label>
-                <input type="text" class="form-control" id="url" name="url" placeholder="Enter url ..." value="">
+                <input type="text" class="form-control" id="url" name="url" placeholder="Enter url ..." value="<?= $banner['url'] ?>">
             </div>
 
             <div class="form-group">
-                <img style="width: 100px;" src="" alt="">
                 <hr/>
                 <label for="image">Image</label>
+                <img style="width: 100px;" src="<?= $this->asset($banner['image']) ?>" alt="">
                 <input type="file" id="image" name="image" class="form-control-file">
             </div>
 

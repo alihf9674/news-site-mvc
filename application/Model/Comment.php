@@ -9,7 +9,7 @@ class Comment extends Model
 
     public function getCommentsMethod()
     {
-        return $this->selectMethod('SELECT `comments`.*, `posts`.`title` AS post_title, `users`.`user_call` AS user_call FROM `comments`
+        return $this->selectMethod('SELECT `comments`.*, `posts`.`title` AS post_title, `users`.`user_email` AS user_email FROM `comments`
         LEFT JOIN `posts` ON `comments`.`post_id` = `posts`.`id`
         LEFT JOIN `users` ON `comments`.`user_id` = `users`.`id` ORDER BY `id` DESC')->fetchAll();
     }

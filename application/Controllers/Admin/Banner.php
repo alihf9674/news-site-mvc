@@ -41,7 +41,7 @@ class Banner extends Controller
             $this->back();
             die;
         }
-        if ($this->imageTypeFilter($data['image'])) {
+        if (!$this->imageTypeFilter($data['image'])) {
             flash('error', 'فرمت های مجاز برای آپلود شامل این موارد میباشد : gif ,webp ,jpeg ,png, jpg');
             $this->back();
             die;
@@ -62,7 +62,7 @@ class Banner extends Controller
         return $this->view('admin.banners.edit', compact('banner'));
     }
 
-    public function update($id, $data)
+    public function update($data, $id)
     {
         if (empty($data)) {
             flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
@@ -79,21 +79,19 @@ class Banner extends Controller
             $this->back();
             die;
         }
-        if ($this->imageTypeFilter($data['image'])) {
+        if (!$this->imageTypeFilter($data['image'])) {
             flash('error', 'فرمت های مجاز برای آپلود شامل این موارد میباشد : gif ,webp ,jpeg ,png, jpg');
             $this->back();
             die;
         }
-        if (!is_null($data['image']['tmp_name'])) {
-            $previousData = BannerModel::find($id);
-            (new ّImageService)->unset($previousData['image']);
+        if (!empty($data['image']['tmp_name'])) {
+            (new ّImageService)->unset(BannerModel::find($id)['image']);
             $data['image'] = (new ّImageService)->save($data['image']);
         } else {
-            unset($data['image']);
+            (new ّImageService)->unset(BannerModel::find($id)['image']);
         }
         BannerModel::update('banners', $id, array_keys($data), array_values($data));
         $this->redirect('admin/banner');
-
     }
 
     public function delete($id)

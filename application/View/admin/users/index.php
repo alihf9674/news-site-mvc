@@ -15,8 +15,8 @@ $this->include('admin.layouts.sidebar');
         <thead>
         <tr>
             <th>row</th>
-            <th>fullname</th>
-            <th>phone</th>
+            <th>full name</th>
+            <th>email</th>
             <th>password</th>
             <th>permission</th>
             <th>created at</th>
@@ -30,7 +30,7 @@ $this->include('admin.layouts.sidebar');
             <tr>
                 <td><?= $user['id'] ?></td>
                 <td><?= $user['username'] ?></td>
-                <td><?= $user['user_call'] ?></td>
+                <td><?= $user['user_email'] ?></td>
                 <td><?= $user['password'] ?></td>
                 <td><?= $user['permission'] ?></td>
                 <td><?= convertToJalaliDate($user['created_at']) ?></td>

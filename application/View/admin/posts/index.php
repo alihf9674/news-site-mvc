@@ -28,7 +28,6 @@ $this->include('admin.layouts.sidebar');
         <?php
         $i = 1;
         foreach ($posts as $post) {
-
             ?>
             <tr>
                 <td>

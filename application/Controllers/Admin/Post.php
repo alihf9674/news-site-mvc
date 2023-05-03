@@ -12,8 +12,8 @@ class Post extends Controller
 {
     use HasPostController;
 
-    private array $formInput = ['username', 'user_email', 'password', 'permission'];
-    private array $skipValidation = ['user_email'];
+    private array $formInput = ['title', 'cat_id', 'image', 'published_at','summary', 'body'];
+    private array $skipValidation = ['image', 'published_at'];
 
     public function index()
     {
@@ -29,6 +29,7 @@ class Post extends Controller
 
     public function store($data)
     {
+
         if (empty($data)) {
             flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
             $this->back();
@@ -77,6 +78,7 @@ class Post extends Controller
 
     public function update($data, $id)
     {
+
         if (empty($data)) {
             flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
             $this->back();
@@ -100,8 +102,12 @@ class Post extends Controller
             die;
         }
         $data['published_at'] = date("Y-m-d H:i:s", (int)$PublishedAtTimeStamp);
-        (new SavePost)->unset(PostModel::find($id));
-        $data['image'] = (new SavePost)->save($data['image']);
+        if(!empty($data['image']['tmp_name'])){
+            (new SavePost)->unset(PostModel::find($id)['image']);
+            $data['image'] = (new SavePost)->save($data['image']);
+        }else{
+            (new SavePost)->unset(PostModel::find($id)['image']);
+        }
         if (!$data['image']) {
             flash('error', 'عملیات آپلود عکس ناموفق بود؛ لطفا مجددا تلاش کنید.');
             $this->back();
