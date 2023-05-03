@@ -6,10 +6,10 @@ trait HasPostController
 {
     protected function imageTypeFilter($image): bool
     {
-        $imagetypesRule = array('jpg', 'png', 'jpeg', 'webp', 'gif');
+        $imageMimeTypes = array('jpg', 'png', 'jpeg', 'webp', 'gif');
         if (isset($image)) {
             $imageType = explode('/', $image['type'])[1];
-            if (in_array($imageType, $imagetypesRule))
+            if (in_array($imageType, $imageMimeTypes))
                 return true;
         }
         return false;
