@@ -8,5 +8,5 @@ use System\Traits\HasRedirect;
 
 abstract class Controller
 {
-    use HasView, HasRedirect, hasSetFlashMessage;
+    use HasView, HasRedirect, HasSetFlashMessage;
 }
