@@ -22,16 +22,10 @@ class Category extends Controller
 
     public function store($data)
     {
-        if (empty($data['name'])) {
-            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
-            $this->back();
-            die;
-        }
-        if (!isValidInput($data, $this->formInput)) {
-            flash('error', 'لطفا فیلد درست را وارد کنید.');
-            $this->back();
-            die;
-        }
+        if (empty($data['name']))
+            $this->setWarningFlashMessage('فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+        if (!isValidInput($data, $this->formInput))
+            $this->setWarningFlashMessage('لطفا فیلد درست را وارد کنید.');
         $safeData = validateFormData($data);
         CategoryModel::insert('categories', array_keys($safeData), array_values($safeData));
         $this->redirect('admin/category');
@@ -45,16 +39,10 @@ class Category extends Controller
 
     public function update($data, $id)
     {
-        if (empty($data['name'])) {
-            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
-            $this->back();
-            die;
-        }
-        if (!isValidInput($data, $this->formInput)) {
-            flash('error', 'لطفا فیلد درست را وارد کنید.');
-            $this->back();
-            die;
-        }
+        if (empty($data['name']))
+            $this->setWarningFlashMessage('فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+        if (!isValidInput($data, $this->formInput))
+            $this->setWarningFlashMessage('لطفا فیلد درست را وارد کنید.');
         $safeData = validateFormData($data);
         CategoryModel::update('categories', $id, array_keys($safeData), array_values($safeData));
         return $this->redirect('admin/category');

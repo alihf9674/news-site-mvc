@@ -26,32 +26,17 @@ class Banner extends Controller
 
     public function store($data)
     {
-        if (empty($data)) {
-            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
-            $this->back();
-            die;
-        }
-        if (!isValidInput($data, $this->formInput)) {
-            flash('error', 'لطفا همه فیلد ها را به طورصحیح پر کنید.');
-            $this->back();
-            die;
-        }
-        if (!filter_var($data['url'], FILTER_VALIDATE_URL)) {
-            flash('error', 'لطفافرمت آدرس را صحیح وارد کنید.');
-            $this->back();
-            die;
-        }
-        if (!$this->imageTypeFilter($data['image'])) {
-            flash('error', 'فرمت های مجاز برای آپلود شامل این موارد میباشد : gif ,webp ,jpeg ,png, jpg');
-            $this->back();
-            die;
-        }
+        if (empty($data))
+            $this->setWarningFlashMessage('فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+        if (!isValidInput($data, $this->formInput))
+            $this->setWarningFlashMessage('لطفا همه فیلد ها را به طورصحیح پر کنید.');
+        if (!filter_var($data['url'], FILTER_VALIDATE_URL))
+            $this->setWarningFlashMessage('لطفافرمت آدرس را صحیح وارد کنید.');
+        if (!$this->imageTypeFilter($data['image']))
+            $this->setWarningFlashMessage('فرمت های مجاز برای آپلود شامل این موارد میباشد : gif ,webp ,jpeg ,png, jpg');
         $data['image'] = (new ّImageService)->save($data['image']);
-        if (!$data['image']) {
-            flash('error', 'عملیات آپلود عکس ناموفق بود؛ لطفا مجددا تلاش کنید.');
-            $this->back();
-            die;
-        }
+        if (!$data['image'])
+            $this->setWarningFlashMessage('عملیات آپلود عکس ناموفق بود؛ لطفا مجددا تلاش کنید.');
         BannerModel::insert('banners', array_keys($data), array_values($data));
         $this->redirect('admin/banner');
     }
@@ -64,31 +49,17 @@ class Banner extends Controller
 
     public function update($data, $id)
     {
-        if (empty($data)) {
-            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
-            $this->back();
-            die;
-        }
-        if (!isValidInput($data, $this->formInput)) {
-            flash('error', 'لطفا همه فیلد ها را به طورصحیح پر کنید.');
-            $this->back();
-            die;
-        }
-        if (!filter_var($data['url'], FILTER_VALIDATE_URL)) {
-            flash('error', 'لطفافرمت آدرس را صحیح وارد کنید.');
-            $this->back();
-            die;
-        }
-        if (!$this->imageTypeFilter($data['image'])) {
-            flash('error', 'فرمت های مجاز برای آپلود شامل این موارد میباشد : gif ,webp ,jpeg ,png, jpg');
-            $this->back();
-            die;
-        }
+        if (empty($data))
+            $this->setWarningFlashMessage('فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+        if (!isValidInput($data, $this->formInput))
+            $this->setWarningFlashMessage('لطفا همه فیلد ها را به طورصحیح پر کنید.');
+        if (!filter_var($data['url'], FILTER_VALIDATE_URL))
+            $this->setWarningFlashMessage('لطفافرمت آدرس را صحیح وارد کنید.');
+        if (!$this->imageTypeFilter($data['image']))
+            $this->setWarningFlashMessage('فرمت های مجاز برای آپلود شامل این موارد میباشد : gif ,webp ,jpeg ,png, jpg');
         if (!empty($data['image']['tmp_name'])) {
             (new ّImageService)->unset(BannerModel::find($id)['image']);
             $data['image'] = (new ّImageService)->save($data['image']);
-        } else {
-            (new ّImageService)->unset(BannerModel::find($id)['image']);
         }
         BannerModel::update('banners', $id, array_keys($data), array_values($data));
         $this->redirect('admin/banner');

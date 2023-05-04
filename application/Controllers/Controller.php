@@ -2,10 +2,11 @@
 
 namespace Application\Controllers;
 
+use System\Traits\HasSetFlashMessage;
 use System\Traits\HasView;
 use System\Traits\HasRedirect;
 
-class Controller
+abstract class Controller
 {
-    use HasView, HasRedirect;
+    use HasView, HasRedirect, hasSetFlashMessage;
 }

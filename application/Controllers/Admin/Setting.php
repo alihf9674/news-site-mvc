@@ -25,11 +25,8 @@ class Setting extends Controller
 
     public function Update($data)
     {
-        if (!isValidInput($data, $this->formInput)) {
-            flash('error', 'لطفا همه فیلد ها را به طورصحیح پر کنید.');
-            $this->back();
-            die;
-        }
+        if (!isValidInput($data, $this->formInput))
+            $this->setWarningFlashMessage('لطفا همه فیلد ها را به طورصحیح پر کنید.');
         $setting = SettingModel::all();
         if (!empty($data['logo']['tmp_name']))
             (new SettingImage)->save($data['icon']);

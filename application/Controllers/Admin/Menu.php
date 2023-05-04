@@ -24,21 +24,12 @@ class Menu extends Controller
 
     public function store($data)
     {
-        if (empty($data)) {
-            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
-            $this->back();
-            die;
-        }
-        if (!isValidInput($data, $this->formInput)) {
-            flash('error', 'لطفا همه فیلد ها را به طورصحیح پر کنید.');
-            $this->back();
-            die;
-        }
-        if (!filter_var($data['url'], FILTER_VALIDATE_URL)) {
-            flash('error', 'لطفا فرمت آدرس را به طور صحیح وارد کنید.');
-            $this->back();
-            die;
-        }
+        if (empty($data))
+            $this->setWarningFlashMessage('فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+        if (!isValidInput($data, $this->formInput))
+            $this->setWarningFlashMessage('لطفا همه فیلد ها را به طورصحیح پر کنید.');
+        if (!filter_var($data['url'], FILTER_VALIDATE_URL))
+            $this->setWarningFlashMessage('لطفا فرمت آدرس را به طور صحیح وارد کنید.');
         $safeData = validateFormData($data, $this->skipValidation);
         MenuModel::insert('menus', array_keys(array_filter($safeData)), array_values(array_filter($safeData)));
         $this->redirect('admin/menu');
@@ -53,21 +44,12 @@ class Menu extends Controller
 
     public function update($data, $id)
     {
-        if (empty($data)) {
-            flash('error', 'فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
-            $this->back();
-            die;
-        }
-        if (!isValidInput($data, $this->formInput)) {
-            flash('error', 'لطفا همه فیلد ها را به طورصحیح پر کنید.');
-            $this->back();
-            die;
-        }
-        if (!filter_var($data['url'], FILTER_VALIDATE_URL)) {
-            flash('error', 'لطفا فرمت آدرس را به طور صحیح وارد کنید.');
-            $this->back();
-            die;
-        }
+        if (empty($data))
+            $this->setWarningFlashMessage('فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
+        if (!isValidInput($data, $this->formInput))
+            $this->setWarningFlashMessage('لطفا همه فیلد ها را به طورصحیح پر کنید.');
+        if (!filter_var($data['url'], FILTER_VALIDATE_URL))
+            $this->setWarningFlashMessage('لطفا فرمت آدرس را به طور صحیح وارد کنید.');
         $safeData = validateFormData($data, $this->skipValidation);
         MenuModel::update('menus', $id, array_keys($safeData), array_values($safeData));
         $this->redirect('admin/menu');
