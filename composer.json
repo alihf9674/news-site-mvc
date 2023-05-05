@@ -1,6 +1,7 @@
 {
     "require": {
         "morilog/jalali": "3.*",
-        "symfony/translation-contracts": "^1.1.6"
+        "symfony/translation-contracts": "^1.1.6",
+        "phpmailer/phpmailer": "^6.8"
     }
 }

@@ -21,6 +21,10 @@ class ComposerStaticInit3d3c73f288ec54247d7e8dc0c5bdee0c
             'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Component\\Translation\\' => 30,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
         'M' => 
         array (
             'Morilog\\Jalali\\' => 15,
@@ -51,6 +55,10 @@ class ComposerStaticInit3d3c73f288ec54247d7e8dc0c5bdee0c
         'Symfony\\Component\\Translation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Morilog\\Jalali\\' => 
         array (

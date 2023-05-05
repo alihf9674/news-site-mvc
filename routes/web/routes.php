@@ -1,4 +1,5 @@
 <?php
+
 use System\Router\Web\Routing;
 
 //categories
@@ -15,8 +16,8 @@ Routing::uri('admin/post/store', 'Application\Controllers\Admin\Post', 'store', 
 Routing::uri('admin/post/edit/{id}', 'Application\Controllers\Admin\Post', 'edit');
 Routing::uri('admin/post/update/{id}', 'Application\Controllers\Admin\Post', 'update', 'POST');
 Routing::uri('admin/post/delete/{id}', 'Application\Controllers\Admin\Post', 'delete');
-Routing::uri('admin/post/selected/{id}', 'Application\Controllers\Admin\Post','selected');
-Routing::uri('admin/post/breaking-news/{id}', 'Application\Controllers\Admin\Post','breakingNews');
+Routing::uri('admin/post/selected/{id}', 'Application\Controllers\Admin\Post', 'selected');
+Routing::uri('admin/post/breaking-news/{id}', 'Application\Controllers\Admin\Post', 'breakingNews');
 
 //banners
 Routing::uri('admin/banner', 'Application\Controllers\Admin\Banner', 'index');
@@ -45,9 +46,21 @@ Routing::uri('admin/menu/create', 'Application\Controllers\Admin\Menu', 'create'
 Routing::uri('admin/menu/store', 'Application\Controllers\Admin\Menu', 'store', 'POST');
 Routing::uri('admin/menu/edit/{$id}', 'Application\Controllers\Admin\Menu', 'edit');
 Routing::uri('admin/menu/update/{$id}', 'Application\Controllers\Admin\Menu', 'update', 'POST');
-Routing::uri('admin/menu/delete/{$id}', 'Application\Controllers\Admin\Menu', 'delete' );
+Routing::uri('admin/menu/delete/{$id}', 'Application\Controllers\Admin\Menu', 'delete');
 
 //setting
-Routing::uri('admin/setting', 'Application\Controllers\Admin\Setting','index');
+Routing::uri('admin/setting', 'Application\Controllers\Admin\Setting', 'index');
 Routing::uri('admin/setting/edit', 'Application\Controllers\Admin\Setting', 'edit');
 Routing::uri('admin/setting/update', 'Application\Controllers\Admin\Setting', 'update', 'POST');
+
+//authentication
+Routing::uri('login', 'Application\Controllers\Auth\Login', 'loginView');
+Routing::uri('check-login', 'Application\Controllers\Auth\Login', 'login', 'POST');
+Routing::uri('register', 'Application\Controllers\Auth\Register', 'registerView');
+Routing::uri('register', 'Application\Controllers\Auth\Register', 'register', 'POST');
+Routing::uri('activate/{token}', 'Application\Controllers\Auth\Register', 'activate');
+Routing::uri('forgot', 'Application\Controllers\Auth\ForgotPassword', 'forgotPasswordView');
+Routing::uri('forgot/request', 'Application\Controllers\Auth\ForgotPassword', 'forgotPassword', 'POST');
+Routing::uri('reset-password-form/{token}', 'Application\Controllers\Auth\ResetPassword', 'resetPasswordView');
+Routing::uri('reset-password/{token}', 'Application\Controllers\Auth\ResetPassword', 'resetPassword', 'POST');
+Routing::uri('logout', 'Application\Controllers\Auth\Logout', 'logout');
