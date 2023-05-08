@@ -13,7 +13,6 @@ class Post extends Controller
     use HasPostController;
 
     private array $formInput = ['title', 'cat_id', 'image', 'published_at', 'summary', 'body'];
-    private array $skipValidation = ['image', 'published_at'];
 
     public function index()
     {
