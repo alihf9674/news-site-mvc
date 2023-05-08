@@ -1,5 +1,5 @@
 <?php
-$this->include('auth.layouts.head-tag')
+$this->include('auth.layouts.head-tag');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +39,7 @@ $this->include('auth.layouts.head-tag')
                             فراموشی
                         </span>
                     <a class="txt3" href="#">
-                        رمز عبور
+                        رمز عبور یا نام کاربری
                     </a>
                 </div>
                 <div class="text-center p-t-136">
@@ -53,7 +53,7 @@ $this->include('auth.layouts.head-tag')
     </div>
 </div>
 <?php
-$this->include('auth.layouts.scripts')
+$this->include('auth.layouts.scripts');
 ?>
 </body>
 </html>
