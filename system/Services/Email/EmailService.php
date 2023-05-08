@@ -19,6 +19,7 @@ class EmailService
     const SENDER_MAIL = "newsSite@gmail.com";
     const SENDER_NAME = "News Site Admin";
     const CHAR_SET = "UTF-8";
+    const SMTP_SECURE = 'tls';
 
     /**
      * @throws PHPMailerException
@@ -34,7 +35,7 @@ class EmailService
             $mail->SMTPAuth = self::SMTP_AUTH;
             $mail->Username = self::MAIL_USERNAME;
             $mail->Password = self::MAIL_PASSWORD;
-            $mail->SMTPSecure = 'tls';
+            $mail->SMTPSecure = self::SMTP_SECURE;
             $mail->Port = self::MAIL_PORT;
             $mail->setFrom(self::SENDER_MAIL, self::SENDER_NAME);
             $mail->addAddress($emailAddress);
