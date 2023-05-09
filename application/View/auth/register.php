@@ -14,7 +14,7 @@ $this->include('auth.layouts.head-tag');
                 <img src="<?= $this->asset('public/auth/assets/images/img-01.png') ?>" alt="IMG">
             </div>
 
-            <form method="post" action="" class="login100-form validate-form">
+            <form method="post" action="<?= $this->url('register/store') ?>" class="login100-form validate-form">
                     <span class="login100-form-title">
                         ثبت نام
                     </span>
@@ -26,7 +26,7 @@ $this->include('auth.layouts.head-tag');
                         </span>
                 </div>
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="text" name="email" placeholder="ایمیل">
+                    <input class="input100" type="text" name="user_email" placeholder="ایمیل">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>

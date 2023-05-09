@@ -57,8 +57,8 @@ Routing::uri('admin/setting/update', 'Application\Controllers\Admin\Setting', 'u
 Routing::uri('login', 'Application\Controllers\Auth\Login', 'loginView');
 Routing::uri('check-login', 'Application\Controllers\Auth\Login', 'login', 'POST');
 Routing::uri('register', 'Application\Controllers\Auth\Register', 'registerView');
-Routing::uri('register', 'Application\Controllers\Auth\Register', 'register', 'POST');
-Routing::uri('activate/{token}', 'Application\Controllers\Auth\Register', 'activate');
+Routing::uri('register/store', 'Application\Controllers\Auth\Register', 'registerStore', 'POST');
+Routing::uri('activate/{token}', 'Application\Controllers\Auth\Register', 'activationMessage');
 Routing::uri('forgot', 'Application\Controllers\Auth\ForgotPassword', 'forgotPasswordView');
 Routing::uri('forgot/request', 'Application\Controllers\Auth\ForgotPassword', 'forgotPassword', 'POST');
 Routing::uri('reset-password-form/{token}', 'Application\Controllers\Auth\ResetPassword', 'resetPasswordView');

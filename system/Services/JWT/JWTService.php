@@ -7,7 +7,7 @@ use Firebase\JWT\Key;
 
 class JWTService extends JWT
 {
-    private static $key = 'news_siteTokenSecretFromAdmin@thisSite';
+    private static $key = 'news_site$TokenSecret1215#4548@thisSite487451';
 
     const HS256 = 'HS256';
     const HS384 = 'HS384';

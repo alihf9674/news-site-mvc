@@ -29,6 +29,10 @@ class ComposerStaticInit3d3c73f288ec54247d7e8dc0c5bdee0c
         array (
             'Morilog\\Jalali\\' => 15,
         ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
         'C' => 
         array (
             'Carbon\\' => 7,
@@ -63,6 +67,10 @@ class ComposerStaticInit3d3c73f288ec54247d7e8dc0c5bdee0c
         'Morilog\\Jalali\\' => 
         array (
             0 => __DIR__ . '/..' . '/morilog/jalali/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'Carbon\\' => 
         array (
