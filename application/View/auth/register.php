@@ -13,11 +13,20 @@ $this->include('auth.layouts.head-tag');
             <div class="login100-pic js-tilt" data-tilt>
                 <img src="<?= $this->asset('public/auth/assets/images/img-01.png') ?>" alt="IMG">
             </div>
-
             <form method="post" action="<?= $this->url('register/store') ?>" class="login100-form validate-form">
                     <span class="login100-form-title">
                         ثبت نام
                     </span>
+                <?php
+                $failedMessage = flash('error');
+                $successMessage = flash('success');
+                if (!empty($failedMessage)) {
+                    echo failedMessage($failedMessage);
+                }
+                if (!empty($successMessage)) {
+                    echo successfullyMessage($successMessage);
+                }
+                ?>
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                     <input class="input100" type="text" name="username" placeholder="نام کاربری">
                     <span class="focus-input100"></span>
