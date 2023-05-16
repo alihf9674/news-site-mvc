@@ -19,12 +19,8 @@ $this->include('auth.layouts.head-tag');
                     </span>
                 <?php
                 $failedMessage = flash('error');
-                $successMessage = flash('success');
                 if (!empty($failedMessage)) {
                     echo failedMessage($failedMessage);
-                }
-                if (!empty($successMessage)) {
-                    echo successfullyMessage($successMessage);
                 }
                 ?>
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">

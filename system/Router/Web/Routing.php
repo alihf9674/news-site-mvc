@@ -2,11 +2,11 @@
 
 namespace System\Router\Web;
 
-use System\Traits\HastMethodCaller;
+use System\Traits\HasMethodCaller;
 
 class Routing
 {
-    use HastMethodCaller;
+    use HasMethodCaller;
 
     private $currentUrl = null;
     private $reservedUrl = null;

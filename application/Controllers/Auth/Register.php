@@ -13,7 +13,7 @@ class Register extends Controller
 
     public function registerView()
     {
-        return $this->view('auth/register');
+        return $this->view('auth.register');
     }
 
     public function registerStore($request)
@@ -33,7 +33,11 @@ class Register extends Controller
         if (is_null($user))
             $this->setWarningFlashMessage('کاربر با این ایمیل در سیستم ثبت شده است لطفا به صفحه ورود بروید.');
         else {
-            $token = JWTService::JwtEncode(['user_name' => $request['username'], 'email' => $request['user_email']]);
+            $token = JWTService::JwtEncode([
+                'iat' => $this->getCurrentTime(),
+                'user_name' => $request['username'],
+                'email' => $request['user_email']
+            ]);
             $activationMessage = $this->activationMessage($request['username'], $token);
             $result = (new Email)->setSubject('ایمیل فعال سازی حساب کاربری')
                 ->setMessage($activationMessage)
@@ -41,13 +45,15 @@ class Register extends Controller
             if ($result) {
                 $request['verify_token'] = $token;
                 $request['user_info'] = json_encode([
-                    'email' => $request['user_email'], 'ip' => $this->getUserIpAddress(), 'user_agent' => $this->getUserAgent()
+                    'email' => $request['user_email'],
+                    'ip' => $this->getUserIpAddress(),
+                    'user_agent' => $this->getUserAgent()
                 ]);
                 $request['password'] = $this->getPasswordHash($request['password']);
                 UserModel::insert('users', array_keys($request), array_values($request));
                 $this->redirect('login');
-            } else
-                $this->setWarningFlashMessage('error', '.ارسال ایمیل با خطا مواجه شد');
+            }
+                $this->setWarningFlashMessage('.ارسال ایمیل با خطا مواجه شد');
         }
     }
 
@@ -56,24 +62,27 @@ class Register extends Controller
         $user = UserModel::findUserByToken($token);
         if (!$user)
             $this->setWarningFlashMessage('.توکن شما معتبر نمیباشد لطفا مجددا تلاش کنید', 'register');
-
         UserModel::update('users', $user['id'], ['is_active'], 1);
         $this->setSuccessFlashMessage('حساب کاربری شما با موفقیت فعال شد.', 'login');
     }
 
-    private function activationMessage($username, $token)
+    private function activationMessage($username, $token): string
     {
-        $message = '
+        return '
         <h1>فعال سازی حساب کاربری</h1>
         <p>' . $username . ' عزیز برای فعال سازی حساب کاربری خود لطفا روی لینک زیر کلیک نمایید</p>
-        <di><a href="' . url('activation/' . $token) . '">فعال سازی حساب</a></di>
+        <di><a href="' . $this->url('activation/' . $token) . '">فعال سازی حساب</a></di>
         ';
-        return $message;
     }
 
-    private function getPasswordHash($password)
+    private function getPasswordHash($password): string
     {
         return password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    private function getCurrentTime(): int
+    {
+        return date('Y-m-d H:i:s');
     }
 
     private function getUserIpAddress()

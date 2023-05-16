@@ -2,7 +2,7 @@
 
 namespace System\Traits;
 
-trait HastMethodCaller
+trait HasMethodCaller
 {
     public static function __callStatic($method, $arguments)
     {

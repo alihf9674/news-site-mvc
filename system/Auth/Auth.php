@@ -4,36 +4,39 @@ namespace System\Auth;
 
 use Application\Model\User;
 use System\Session\Session;
+use System\Traits\HasSetFlashMessage;
+use System\Traits\HasRedirect;
+use System\Traits\HasMethodCaller;
 
 class Auth
 {
-    private string $redirectTo = '/login';
-    const SUFFIX = 'Method';
+    use HasSetFlashMessage, HasRedirect, HasMethodCaller;
+
+    private string $redirectTo = 'login';
 
     private function userMethod()
     {
         if (!Session::get('user'))
-            return ($this->redirectTo);
+            return $this->redirect($this->redirectTo);
 
         $user = User::find(Session::get('user'));
         if (empty($user)) {
             Session::unset('user');
-            return ($this->redirectTo);
+            return $this->redirect($this->redirectTo);
         } else
             return $user;
     }
 
-    private function checkMethod(): bool|string
+    private function checkMethod()
     {
         if (!Session::get('user'))
-            return ($this->redirectTo);
-
+            return $this->redirect($this->redirectTo);
         $user = User::find(Session::get('user'));
         if (empty($user)) {
             Session::remove('user');
-            return ($this->redirectTo);
-        } else
-            return true;
+            return $this->redirect($this->redirectTo);
+        }
+        return true;
     }
 
     private function ifCheckLoginMethod(): bool
@@ -48,19 +51,18 @@ class Auth
 
     private function loginByEmailMethod($email, $password)
     {
-        $user = User::getUserByEmail('email', $email)->get();
+        $user = User::getUserByEmail($email);
         if (empty($user)) {
-            return false;
+            $this->setWarningFlashMessage('کاربری با این مشخصات یافت نشد.');
         }
-
-        if (password_verify($password, $user[0]->password) and $user[0]->is_active == 1) {
-            Session::set('user', $user[0]->id);
+        if (password_verify($password, $user['password']) && $user['is_active'] == 1) {
+            Session::set('user', $user['id']);
             return true;
-        } else
-            error('login', 'کلمه عبور اشتباه است');
+        }
+        $this->setWarningFlashMessage('کلمه عبور اشتباه است');
     }
 
-    private function logOutMethod()
+    private function logoutMethod()
     {
         Session::remove('user');
     }
@@ -69,7 +71,7 @@ class Auth
     {
         $user = User::find($id);
         if (empty($user)) {
-            error('login', 'کاربر وجود ندارد');
+            $this->setWarningFlashMessage('کاربر وجود ندارد');
             return false;
         } else {
             Session::set('user', $user->id);
@@ -77,15 +79,4 @@ class Auth
         }
     }
 
-    public static function __callStatic($name, $arguments)
-    {
-        $instance = new self();
-        return $instance->methodCaller($name, $arguments);
-    }
-
-    private function methodCaller($method, $arguments)
-    {
-        $methodName = $method . self::SUFFIX;
-        return call_user_func_array(array($this, $methodName), $arguments);
-    }
 }
