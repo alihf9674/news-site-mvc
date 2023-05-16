@@ -13,17 +13,14 @@ class EmailService
     private $message;
     const MAIL_HOST = "smtp.gmail.com";
     const SMTP_AUTH = true;
-    const MAIL_USERNAME = "newsSite@gmail.com";
-    const MAIL_PASSWORD = "Test Password";
-    const MAIL_PORT = 465;
+    const MAIL_USERNAME = "alihatffar.96@gmail.com";
+    const MAIL_PASSWORD = "ali32945";
+    const MAIL_PORT = 587;
     const SENDER_MAIL = "newsSite@gmail.com";
     const SENDER_NAME = "News Site Admin";
     const CHAR_SET = "UTF-8";
     const SMTP_SECURE = 'tls';
 
-    /**
-     * @throws PHPMailerException
-     */
     public function send($emailAddress)
     {
         $mail = new PHPMailer(true);
