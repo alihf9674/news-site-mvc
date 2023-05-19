@@ -20,7 +20,7 @@ $this->include('admin.layouts.sidebar');
             </div>
             <div class="form-group">
                 <label for="user_call">Email</label>
-                <input type="text" class="form-control" id="user_email" name="user_email" value="<?= $user['user_call'] ?>">
+                <input type="text" class="form-control" id="user_email" name="user_email" value="<?= $user['user_email'] ?>">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>

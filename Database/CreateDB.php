@@ -38,7 +38,7 @@ class CreateDB extends Model
                   `created_at` datetime NOT NULL,
                   `updated_at` datetime DEFAULT NULL,
                   PRIMARY KEY (`id`),
-                  UNIQUE KEY (`user_call`) 
+                  UNIQUE KEY (`user_eamil`) 
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_general_ci;",
 
             "CREATE TABLE `block_ip` (

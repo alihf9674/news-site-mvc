@@ -20,7 +20,7 @@ $this->include('admin.layouts.sidebar');
                        value="">
             </div>
             <div class="form-group">
-                <label for="user_call">Email</label>
+                <label for="user_email">Email</label>
                 <input type="text" class="form-control" id="user_email" name="user_email" placeholder="Enter title ...">
             </div>
 

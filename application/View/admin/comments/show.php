@@ -10,7 +10,7 @@ $this->include('admin.layouts.sidebar');
         <h1 class="h4 border-bottom"><?= $comment['username'] ?></h1>
         <p class="text-dark border-bottom"><?= $comment['comment'] ?></p>
         <p class="text-dark border-bottom"><?= $comment['post_titles'] ?></p>
-        <p class="text-dark border-bottom"><?= $comment['user_call'] ?></p>
+        <p class="text-dark border-bottom"><?= $comment['user_email'] ?></p>
         <p class="text-dark border-bottom"><?= $comment['status'] ?></p>
         <p class="text-dark border-bottom"><?= convertToJalaliDate($comment['created_at']) ?></p>
         <?php if ($comment['status'] == 'approved') { ?>

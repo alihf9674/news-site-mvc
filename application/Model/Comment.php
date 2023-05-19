@@ -31,8 +31,9 @@ class Comment extends Model
 
     public function getCommentMethod($id)
     {
-        return $this->selectMethod('SELECT `comments`.*, (SELECT `title` FROM `posts` WHERE `comments`.`post_id` = `posts`.`id`)AS post_titles , 
-        (SELECT `user_call` FROM `users` WHERE `comments`.`user_id` = `users`.`id`)AS user_call, 
+        return $this->selectMethod('SELECT `comments`.*, 
+       (SELECT `title` FROM `posts` WHERE `comments`.`post_id` = `posts`.`id`)AS post_titles , 
+        (SELECT `user_email` FROM `users` WHERE `comments`.`user_id` = `users`.`id`)AS user_email, 
         (SELECT `username` FROM  `users` WHERE `comments`.`user_id` = `users`.`id`) AS username 
         FROM `comments` WHERE `id` = ?', [$id])->fetch();
     }

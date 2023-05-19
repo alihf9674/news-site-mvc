@@ -17,23 +17,21 @@ class Login extends controller
 
     public function login($request)
     {
+
         if (empty($request))
             $this->setWarningFlashMessage('فیلد ها باید پر شوند.');
         if (!isValidInput($request, $this->formInput))
             $this->setWarningFlashMessage('لطفا فیلد ها را به صورت صحیح وارد کنید.');
         if (strlen($request['password']) < 6)
             $this->setWarningFlashMessage('رمز عبور باید بیشتر از 6 کاراکتر باشد.');
-        if ($request['password'] !== $request['confirm_password'])
-            $this->setWarningFlashMessage('تکرار رمز با رمز باید یکسان باشد.');
         if (!filter_var($request['user_email'], FILTER_VALIDATE_EMAIL))
             $this->setWarningFlashMessage('لطفا فرمت ایمیل را به طور صحیح وارد کنید.');
         if (Auth::loginByEmail($request['user_email'], $request['password'])) {
             $user = User::findUserByEmail($request['user_email']);
-            if (!password_verify($user['password'], $request['password']))
-                $this->setWarningFlashMessage('رمز وارد شده صحیح نیست.');
-            if ($user['permission'] == 1) {
+            if ($user['permission'] == 'admin') {
                 $this->redirect('admin');
             }
+
             $this->redirect('home');
         }
     }

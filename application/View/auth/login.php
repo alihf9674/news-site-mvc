@@ -13,7 +13,7 @@ $this->include('auth.layouts.head-tag');
             <div class="login100-pic js-tilt" data-tilt>
                 <img src="<?= $this->asset('public/auth/assets/images/img-01.png') ?>" alt="IMG">
             </div>
-            <form method="post" action="" class="login100-form validate-form">
+            <form method="post" action="<?= $this->url('check-login') ?>" class="login100-form validate-form">
                     <span class="login100-form-title">ورود کاربر</span>
                 <?php
                 $failedMessage = flash('error');

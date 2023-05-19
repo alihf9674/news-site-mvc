@@ -9,7 +9,7 @@ use System\Services\JWT\JWTService;
 
 class Register extends Controller
 {
-    private array $formInput = ['username', 'email', 'password', 'confirm_password'];
+    private array $formInput = ['username', 'user_email', 'password', 'confirm_password'];
 
     public function registerView()
     {
@@ -26,11 +26,12 @@ class Register extends Controller
             $this->setWarningFlashMessage('رمز عبور باید بیشتر از 6 کاراکتر باشد.');
         if ($request['password'] !== $request['confirm_password'])
             $this->setWarningFlashMessage('تکرار رمز با رمز باید یکسان باشد.');
-        if (!filter_var($request['email'], FILTER_VALIDATE_EMAIL))
+        if (!filter_var($request['user_email'], FILTER_VALIDATE_EMAIL))
             $this->setWarningFlashMessage('لطفا فرمت ایمیل را به طور صحیح وارد کنید.');
 
         $user = UserModel::findUserByEmail($request['user_email']);
-        if (is_null($user))
+
+        if ($user)
             $this->setWarningFlashMessage('کاربر با این ایمیل در سیستم ثبت شده است لطفا به صفحه ورود بروید.');
         else {
             $token = JWTService::JwtEncode([
@@ -50,19 +51,20 @@ class Register extends Controller
                     'user_agent' => $this->getUserAgent()
                 ]);
                 $request['password'] = $this->getPasswordHash($request['password']);
+                unset($request['confirm_password']);
                 UserModel::insert('users', array_keys($request), array_values($request));
                 $this->redirect('login');
-            }
+        }
                 $this->setWarningFlashMessage('.ارسال ایمیل با خطا مواجه شد');
         }
     }
 
-    private function activation($token)
+    public function activate($token)
     {
         $user = UserModel::findUserByToken($token);
         if (!$user)
             $this->setWarningFlashMessage('.توکن شما معتبر نمیباشد لطفا مجددا تلاش کنید', 'register');
-        UserModel::update('users', $user['id'], ['is_active'], 1);
+        UserModel::update('users', $user['id'], ['is_active'], [1]);
         $this->setSuccessFlashMessage('حساب کاربری شما با موفقیت فعال شد.', 'login');
     }
 
@@ -71,7 +73,7 @@ class Register extends Controller
         return '
         <h1>فعال سازی حساب کاربری</h1>
         <p>' . $username . ' عزیز برای فعال سازی حساب کاربری خود لطفا روی لینک زیر کلیک نمایید</p>
-        <di><a href="' . $this->url('activation/' . $token) . '">فعال سازی حساب</a></di>
+        <di><a href="' . $this->url('activate/' . $token) . '">فعال سازی حساب</a></di>
         ';
     }
 

@@ -18,7 +18,6 @@ class Auth
     {
         if (!Session::get('user'))
             return $this->redirect($this->redirectTo);
-
         $user = User::find(Session::get('user'));
         if (empty($user)) {
             Session::unset('user');
@@ -51,10 +50,9 @@ class Auth
 
     private function loginByEmailMethod($email, $password)
     {
-        $user = User::getUserByEmail($email);
-        if (empty($user)) {
+        $user = User::findUserByEmail($email);
+        if (empty($user))
             $this->setWarningFlashMessage('کاربری با این مشخصات یافت نشد.');
-        }
         if (password_verify($password, $user['password']) && $user['is_active'] == 1) {
             Session::set('user', $user['id']);
             return true;

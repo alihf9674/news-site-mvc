@@ -11,23 +11,27 @@ class EmailService
 {
     private $subject;
     private $message;
-    const MAIL_HOST = "smtp.gmail.com";
+    const MAIL_HOST = "ssl://smtp.gmail.com:465";
     const SMTP_AUTH = true;
     const MAIL_USERNAME = "alihatffar.96@gmail.com";
-    const MAIL_PASSWORD = "ali32945";
-    const MAIL_PORT = 587;
-    const SENDER_MAIL = "newsSite@gmail.com";
+    const MAIL_PASSWORD = "nrobfvexigwxtucx";
+    const MAIL_PORT = 465;
+    const SENDER_MAIL = "alihatffar.96@gmail.com";
     const SENDER_NAME = "News Site Admin";
     const CHAR_SET = "UTF-8";
     const SMTP_SECURE = 'tls';
 
+    /**
+     * @throws PHPMailerException
+     */
     public function send($emailAddress)
     {
         $mail = new PHPMailer(true);
         try {
+
             $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-            $mail->CharSet = self::CHAR_SET;
             $mail->isSMTP();
+            $mail->CharSet = self::CHAR_SET;
             $mail->Host = self::MAIL_HOST;
             $mail->SMTPAuth = self::SMTP_AUTH;
             $mail->Username = self::MAIL_USERNAME;

@@ -11,7 +11,7 @@ $this->include('admin.layouts.sidebar');
             <thead>
             <tr>
                 <th>row</th>
-                <th>user call</th>
+                <th>user_email</th>
                 <th>post title</th>
                 <th>comment</th>
                 <th>status</th>
@@ -26,7 +26,7 @@ $this->include('admin.layouts.sidebar');
                     <td><?= $i ?>
                     </td>
                     <td>
-                        <?= $comment['user_call'] ?>
+                        <?= $comment['user_email'] ?>
                     </td>
                     <td>
                         <?= $comment['post_title'] ?>

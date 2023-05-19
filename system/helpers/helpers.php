@@ -60,12 +60,12 @@ function error($name, $message = null)
 
 function successfullyMessage($message)
 {
-    return '<div class="mb-2 alert alert-success"><small class="form-text text-success">' . $message . '</small></div>';
+    return '<div class="mb-2 alert alert-success"><small style="direction: rtl;" class="form-text text-success">' . $message . '</small></div>';
 }
 
 function failedMessage($message): string
 {
-    return '<div class="mb-2 alert alert-danger"><small class="form-text text-danger">' . $message . '</small></div>';
+    return '<div class="mb-2 alert alert-danger"><small style="direction: rtl;" class="form-text text-danger">' . $message . '</small></div>';
 }
 
 function isValidInput($input, array $reserved_input): bool
