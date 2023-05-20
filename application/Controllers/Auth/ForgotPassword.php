@@ -41,7 +41,7 @@ class ForgotPassword extends Controller
     public function forgotMessage($username, $token): string
     {
         return '
-        <h1>فراموشی رمز عبور/h1>
+        <h1>فراموشی رمز عبور</h1>
         <p>' . $username . ' برای تغییر رمز عبور حساب کاربری خود لطفا روی لینک زیر کلیک نمایید</p>
         <di><a href="' . $this->url('reset-password-form/' . $token) . '">کلیک کنید.</a></di>
         ';

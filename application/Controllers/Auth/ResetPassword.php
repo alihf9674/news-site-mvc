@@ -9,7 +9,7 @@ class ResetPassword extends Controller
 {
     public function resetPasswordView($token)
     {
-        return $this->view('auth.reset-password');
+        return $this->view('auth.reset-password', compact('token'));
     }
 
     public function resetPassword($request, $token)
@@ -21,7 +21,7 @@ class ResetPassword extends Controller
         $user = UserModel::findUserByForgotToken($token);
         if (!is_null($user)) {
             date_default_timezone_set('Asia/Tehran');
-            if ($user['forgot_token_expire'] > date('Y-m-d H:i:s'))
+            if ($user['forgot_token_expire'] < date('Y-m-d H:i:s'))
                 $this->setWarningFlashMessage('تاریخ توکن به اتمام رسیده است.');
             UserModel::update('users', $user['id'], ['password'], [$this->getPasswordHash($request['password'])]);
             $this->setSuccessFlashMessage('تغییر رمز با موفقیت انجام شد.', 'login');

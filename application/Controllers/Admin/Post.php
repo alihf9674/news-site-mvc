@@ -28,6 +28,7 @@ class Post extends Controller
 
     public function store($data)
     {
+
         if (empty($data))
             $this->setWarningFlashMessage('فیلد ها نباید خالی باشد؛ مجددا تلاش کنید.');
         if (!isValidInput($data, $this->formInput))
@@ -44,7 +45,7 @@ class Post extends Controller
         $data['image'] = (new SavePost)->save($data['image']);
         if (!$data['image'])
             $this->setWarningFlashMessage('عملیات آپلود عکس ناموفق بود؛ لطفا مجددا تلاش کنید.');
-        $data = array_merge($data, ['user_id' => 1]);
+        $data = array_merge($data, ['user_id' => 2]);
         PostModel::insert('posts', array_keys($data), array_values($data));
         $this->redirect('admin/post');
     }
@@ -75,7 +76,7 @@ class Post extends Controller
         }
         if (!$data['image'])
             $this->setWarningFlashMessage('عملیات آپلود عکس ناموفق بود؛ لطفا مجددا تلاش کنید.');
-        $data = array_merge($data, ['user_id' => 1]);
+        $data = array_merge($data, ['user_id' => 2]);
         PostModel::update('posts', $id, array_keys($data), array_values($data));
         $this->redirect('admin/post');
     }
