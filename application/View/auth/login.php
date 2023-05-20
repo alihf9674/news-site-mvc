@@ -48,8 +48,8 @@ $this->include('auth.layouts.head-tag');
                         <span class="txt1">
                             فراموشی
                         </span>
-                    <a class="txt3" href="#">
-                        رمز عبور یا نام کاربری
+                    <a class="txt3" href="<?= $this->url('forgot') ?>">
+                        رمز عبور
                     </a>
                 </div>
                 <div class="text-center p-t-136">

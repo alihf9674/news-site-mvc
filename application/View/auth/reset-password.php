@@ -35,16 +35,8 @@ $this->include('auth.layouts.head-tag');
                         ارسال
                     </button>
                 </div>
-                <div class="text-center p-t-12">
-                        <span class="txt1">
-                            فراموشی
-                        </span>
-                    <a class="txt2" href="#">
-                        نام کاربری / رمز
-                    </a>
-                </div>
                 <div class="text-center p-t-136">
-                    <a class="txt2" href="#">
+                    <a class="txt2" href="<?= url('login') ?>">
                         ورود به حساب کاربری
                         <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                     </a>
