@@ -20,7 +20,7 @@ class ForgotPassword extends Controller
         if (!filter_var($request['user_email'], FILTER_VALIDATE_EMAIL))
             $this->setWarningFlashMessage('لطفا فرمت ایمیل را به طور صحیح وارد کنید.');
         $user = UserModel::findUserByEmail($request['user_email']);
-        if (is_null($user))
+        if (!$user)
             $this->setWarningFlashMessage('کاربر با این ایمیل یافت نشد.');
         else {
             $token = $this->randomToken();
@@ -32,7 +32,7 @@ class ForgotPassword extends Controller
                 date_default_timezone_set('Asia/Tehran');
                 UserModel::update('users', $user['id'], ['forgot_token', 'forgot_token_expire'],
                     [$token, date('Y-m-d H:i:s', strtotime('+15 minutes'))]);
-                $this->setSuccessFlashMessage('عملیات با موفقیت انجام شد.','login');
+                $this->setSuccessFlashMessage('عملیات با موفقیت انجام شد؛ برای ادامه ایمیل خود را چک کنید.');
             }
             $this->setWarningFlashMessage('ارسال ایمیل انجام نشد.');
         }
@@ -41,9 +41,9 @@ class ForgotPassword extends Controller
     public function forgotMessage($username, $token): string
     {
         return '
-        <h1>فعال سازی حساب کاربری</h1>
-        <p>' . $username . ' برای فعال سازی حساب کاربری خود لطفا روی لینک زیر کلیک نمایید</p>
-        <di><a href="' . $this->url('activation/' . $token) . '">فعال سازی حساب</a></di>
+        <h1>فراموشی رمز عبور/h1>
+        <p>' . $username . ' برای تغییر رمز عبور حساب کاربری خود لطفا روی لینک زیر کلیک نمایید</p>
+        <di><a href="' . $this->url('reset-password-form/' . $token) . '">کلیک کنید.</a></di>
         ';
     }
 

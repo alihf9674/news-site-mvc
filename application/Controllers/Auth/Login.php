@@ -9,7 +9,6 @@ use System\Auth\Auth;
 class Login extends controller
 {
     private array $formInput = ['user_email', 'password'];
-
     public function loginView()
     {
         return $this->view('auth.login');
@@ -17,7 +16,6 @@ class Login extends controller
 
     public function login($request)
     {
-
         if (empty($request))
             $this->setWarningFlashMessage('فیلد ها باید پر شوند.');
         if (!isValidInput($request, $this->formInput))
@@ -31,7 +29,6 @@ class Login extends controller
             if ($user['permission'] == 'admin') {
                 $this->redirect('admin');
             }
-
             $this->redirect('home');
         }
     }
