@@ -19,8 +19,12 @@ $this->include('auth.layouts.head-tag');
                     </span>
                 <?php
                 $failedMessage = flash('error');
+                $successMessage = flash('success');
                 if (!empty($failedMessage)) {
                     echo failedMessage($failedMessage);
+                }
+                if (!empty($successMessage)) {
+                    echo successfullyMessage($successMessage);
                 }
                 ?>
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
@@ -36,7 +40,7 @@ $this->include('auth.layouts.head-tag');
                     </button>
                 </div>
                 <div class="text-center p-t-136">
-                    <a class="txt2" href="<?= url('login') ?>">
+                    <a class="txt2" href="<?= $this->url('login') ?>">
                         ورود به حساب کاربری
                         <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                     </a>
