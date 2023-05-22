@@ -3,9 +3,8 @@
 namespace Application\Controllers\admin;
 
 use Application\Model\Menu as MenuModel;
-use Application\Controllers\controller;
 
-class Menu extends Controller
+class Menu extends Admin
 {
     private array $formInput = ['name', 'url', 'parent_id'];
     private array $skipValidation = ['url'];

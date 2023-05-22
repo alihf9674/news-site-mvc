@@ -1,11 +1,10 @@
 <?php
 
-namespace Application\Controllers\admin;
+namespace Application\Controllers\Admin;
 
 use Application\Model\User as UserModel;
-use Application\Controllers\controller;
 
-class User extends Controller
+class User extends Admin
 {
     private array $formInput = ['username', 'user_email', 'password', 'permission'];
     private array $skipValidation = ['user_email'];

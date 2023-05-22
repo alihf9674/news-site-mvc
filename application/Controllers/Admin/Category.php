@@ -1,11 +1,10 @@
 <?php
 
-namespace Application\Controllers\admin;
+namespace Application\Controllers\Admin;
 
 use Application\Model\Category as CategoryModel;
-use Application\Controllers\controller;
 
-class Category extends Controller
+class Category extends Admin
 {
     private array $formInput = ['name'];
 

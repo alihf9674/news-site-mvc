@@ -4,11 +4,10 @@ namespace Application\Controllers\admin;
 
 use Application\Model\Post as PostModel;
 use Application\Model\category as CategoryModel;
-use Application\Controllers\controller;
 use System\Traits\HasPostController;
 use System\Services\image\PostImageService as SavePost;
 
-class Post extends Controller
+class Post extends Admin
 {
     use HasPostController;
 

@@ -3,10 +3,9 @@
 namespace Application\Controllers\admin;
 
 use Application\Model\Setting as SettingModel;
-use Application\Controllers\controller;
 use System\Services\Image\SettingImageService as SettingImage;
 
-class Setting extends Controller
+class Setting extends Admin
 {
     private array $formInput = ['title', 'description', 'keywords', 'logo', 'icon'];
     private array $skipValidation = ['logo', 'icon'];

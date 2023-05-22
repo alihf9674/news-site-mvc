@@ -1,11 +1,10 @@
 <?php
 
-namespace Application\Controllers\admin;
+namespace Application\Controllers\Admin;
 
 use Application\Model\Comment as CommentModel;
-use Application\Controllers\controller;
 
-class Comment extends Controller
+class Comment extends Admin
 {
     public function index()
     {

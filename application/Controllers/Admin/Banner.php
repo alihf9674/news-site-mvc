@@ -1,13 +1,12 @@
 <?php
 
-namespace Application\Controllers\admin;
+namespace Application\Controllers\Admin;
 
 use Application\Model\Banner as BannerModel;
-use Application\Controllers\controller;
 use System\Services\image\BannerImageService as ّImageService;
 use System\Traits\HasPostController;
 
-class Banner extends Controller
+class Banner extends Admin
 {
     use HasPostController;
 

@@ -10,7 +10,7 @@ class Admin extends Controller
     public function __construct()
     {
         Auth::check();
-        if(Auth::user()->user_type != 'admin') {
+        if (Auth::user()['permission'] != 'admin') {
             $this->redirect('login');
             exit;
         }
