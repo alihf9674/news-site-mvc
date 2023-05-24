@@ -9,3 +9,4 @@ require_once 'system/Error/ErrorDisplay.php';
 (new \System\Bootstrap\Autoload())->boot();
 (new \System\Error\ErrorDisplay())->setErrorReporting();
 require_once BASE_PATH . '/routes/web/routes.php';
+require_once BASE_PATH . '/routes/api/routes.php';
