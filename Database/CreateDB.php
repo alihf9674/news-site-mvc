@@ -53,7 +53,7 @@ class CreateDB extends Model
                `title` varchar(200) COLLATE utf8_general_ci NOT NULL,
                `summary` text COLLATE utf8_general_ci NOT NULL,
                `body` text COLLATE utf8_general_ci NOT NULL,
-               `View` int(11) NOT NULL DEFAULT '0',
+               `view` int(11) NOT NULL DEFAULT '0',
                `user_id` int(11) NOT NULL,
                `cat_id` int(11) NOT NULL,
                `image` varchar(256) COLLATE utf8_general_ci NOT NULL,

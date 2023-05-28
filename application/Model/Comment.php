@@ -6,7 +6,6 @@ class Comment extends Model
 {
     protected $tableName = "`comments`";
 
-
     public function getCommentsMethod()
     {
         return $this->selectMethod('SELECT `comments`.*, `posts`.`title` AS post_title, `users`.`user_email` AS user_email FROM `comments`
@@ -36,5 +35,12 @@ class Comment extends Model
         (SELECT `user_email` FROM `users` WHERE `comments`.`user_id` = `users`.`id`)AS user_email, 
         (SELECT `username` FROM  `users` WHERE `comments`.`user_id` = `users`.`id`) AS username 
         FROM `comments` WHERE `id` = ?', [$id])->fetch();
+    }
+
+    public function getCommentsPostMethod($id)
+    {
+        return $this->selectMethod('SELECT *, 
+        (SELECT `user_name` FROM `users` WHERE `users`.`id` = `comments`.`user_id`)AS user_name 
+        FROM `comments` WHERE `post_id` = ? AND `status` = "approved"', [$id])->fetchAll();
     }
 }

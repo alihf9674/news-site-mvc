@@ -75,7 +75,7 @@ trait HasCRUD
 
     protected function allMethod()
     {
-        return $this->selectMethod('SELECT * FROM ' . "$this->tableName");
+        return $this->selectMethod('SELECT * FROM ' . "$this->tableName")->fetchAll();
     }
 
     protected function findMethod($id)

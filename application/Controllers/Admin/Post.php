@@ -91,7 +91,6 @@ class Post extends Admin
     public function selected($id)
     {
         $selectedPost = PostModel::find($id);
-
         if (!empty($selectedPost)) {
             if ($selectedPost['selected'] == 1)
                 PostModel::update('posts', $id, ['selected'], [2]);
@@ -104,7 +103,6 @@ class Post extends Admin
     public function breakingNews($id)
     {
         $breakingNews = PostModel::find($id);
-
         if (!empty($breakingNews)) {
             if ($breakingNews['breaking_news'] == 1)
                 PostModel::update('posts', $id, ['breaking_news'], [2]);
