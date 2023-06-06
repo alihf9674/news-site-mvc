@@ -17,9 +17,9 @@ class Post extends Model
     {
         return $this->selectMethod('SELECT `posts`.*, 
         (SELECT COUNT(*) FROM `comments` WHERE `comments`.`post_id` = `posts`.`id`) As comments_count,
-        (SELECT `user_name` FROM `users` WHERE `users`.`id` = `posts`.`user_id`) AS user_name,
-        (SELECT `name` FROM `categories` WHERE `categories`.`id` = `posts`.`cat_id`) AS category_name 
-        FROM `posts` WHERE `posts`.`selelcted` = 1 ORDER BY `created_at` DESC LIMIT 0,3')->fetchAll();
+        (SELECT `username` FROM `users` WHERE `users`.`id` = `posts`.`user_id`) AS user_name,
+        (SELECT `name` FROM `categories` WHERE `categories`.`id` = `posts`.`cat_id`) AS category 
+        FROM `posts` WHERE `posts`.`selected` = 1 ORDER BY `created_at` DESC LIMIT 0,3')->fetchAll();
     }
 
     public function getBreakingNewsMethod()
@@ -31,8 +31,8 @@ class Post extends Model
     {
         return $this->selectMethod('SELECT `posts`.*, 
         (SELECT COUNT(*) FROM `comments` WHERE `comments`.`post_id` = `posts`.`id`) As comments_count,
-        (SELECT `user_name` FROM `users` WHERE `users`.`id` = `posts`.`user_id`) AS user_name,
-        (SELECT `name` FROM `categories` WHERE `categories`.`id` = `posts`.`cat_id`) AS category_name 
+        (SELECT `username` FROM `users` WHERE `users`.`id` = `posts`.`user_id`) AS user_name,
+        (SELECT `name` FROM `categories` WHERE `categories`.`id` = `posts`.`cat_id`) AS category 
         FROM `posts` ORDER BY `created_at` DESC LIMIT 0,5')->fetchAll();
     }
 
@@ -40,8 +40,8 @@ class Post extends Model
     {
         return $this->selectMethod('SELECT `posts`.*, 
         (SELECT COUNT(*) FROM `comments` WHERE `comments`.`post_id` = `posts`.`id`) As comments_count,
-        (SELECT `user_name` FROM `users` WHERE `users`.`id` = `posts`.`user_id`) AS user_name,
-        (SELECT `name` FROM `categories` WHERE `categories`.`id` = `posts`.`cat_id`) AS category_name 
+        (SELECT `username` FROM `users` WHERE `users`.`id` = `posts`.`user_id`) AS user_name,
+        (SELECT `name` FROM `categories` WHERE `categories`.`id` = `posts`.`cat_id`) AS category 
         FROM `posts` ORDER BY `view` DESC LIMIT 0,5')->fetchAll();
     }
 
@@ -49,26 +49,25 @@ class Post extends Model
     {
         return $this->selectMethod('SELECT `posts`.*, 
         (SELECT COUNT(*) FROM `comments` WHERE `comments`.`post_id` = `posts`.`id`) As comments_count,
-        (SELECT `user_name` FROM `users` WHERE `users`.`id` = `posts`.`user_id`) AS user_name,
-        (SELECT `name` FROM `categories` WHERE `categories`.`id` = `posts`.`cat_id`) AS category_name 
+        (SELECT `username` FROM `users` WHERE `users`.`id` = `posts`.`user_id`) AS user_name,
+        (SELECT `name` FROM `categories` WHERE `categories`.`id` = `posts`.`cat_id`) AS category 
         FROM `posts` ORDER BY `comments_count` DESC LIMIT 0,5')->fetchAll();
-    }
-
-    public function getTopPostsMethod()
-    {
-        return $this->selectMethod('SELECT `posts`.*, 
-        (SELECT COUNT(*) FROM `comments` WHERE `comments`.`post_id` = `posts`.`id`) As comments_count,
-        (SELECT `user_name` FROM `users` WHERE `users`.`id` = `posts`.`user_id`) AS user_name,
-        (SELECT `name` FROM `categories` WHERE `categories`.`id` = `posts`.`cat_id`) AS category_name 
-        FROM `posts` WHERE `posts`.`selelcted` = 1 ORDER BY `created_at` DESC LIMIT 0,3')->fetchAll();
     }
 
     public function findDetailsPostMethod($id)
     {
         return $this->selectMethod('SELECT `posts`.*, 
         (SELECT COUNT(*) FROM `comments` WHERE `comments`.`post_id` = `posts`.`id`) As comments_count,
-        (SELECT `user_name` FROM `users` WHERE `users`.`id` = `posts`.`user_id`) AS user_name,
-        (SELECT `name` FROM `categories` WHERE `categories`.`id` = `posts`.`cat_id`) AS category_name 
+        (SELECT `username` FROM `users` WHERE `users`.`id` = `posts`.`user_id`) AS user_name,
+        (SELECT `name` FROM `categories` WHERE `categories`.`id` = `posts`.`cat_id`) AS category
         FROM `posts` WHERE `id` = ?', [$id])->fetch();
+    }
+
+    public function getCategoryPostsMethod($cat_id)
+    {
+            $this->selectMethod('SELECT `posts`.*, (SELECT COUNT(*)FROM `comments` WHERE `comments`.`post_id` = `posts`.`id`) AS comments_count,
+        (SELECT `username` FROM `users` WHERE `users`.`user_id` = `posts`.`user_id`) AS username,
+        (SELECT `name` FROM `categories` WHERE `categories`.`category_id` = `posts`.`cat_id`) AS category
+        FROM `posts` WHERE `cat_id` = ? ORDER BY `created_at` DESC LIMIT 0,6', [$cat_id])->fetchAll();
     }
 }
