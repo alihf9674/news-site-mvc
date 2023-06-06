@@ -64,3 +64,10 @@ Routing::uri('forgot/request', 'Application\Controllers\Auth\ForgotPassword', 'f
 Routing::uri('reset-password-form/{token}', 'Application\Controllers\Auth\ResetPassword', 'resetPasswordView');
 Routing::uri('reset-password/{token}', 'Application\Controllers\Auth\ResetPassword', 'resetPassword', 'POST');
 Routing::uri('logout', 'Application\Controllers\Auth\Logout', 'logout');
+
+//app
+Routing::uri('/', 'Application\Controllers\Home', 'index');
+Routing::uri('/home', 'Application\Controllers\Home', 'index');
+Routing::uri('/show-post/{id}', 'Application\Controllers\Home', 'show');
+Routing::uri('/show-category/{id}', 'Application\Controllers\Home', 'category');
+Routing::uri('/comment-store/{post_id}', 'Application\Controllers\Home', 'commentStore', 'POST');
