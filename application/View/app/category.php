@@ -11,11 +11,13 @@ $this->inclue('app.layouts.header');
                         <h1 class="text-white">اخبار دسته بندی </h1>
                     </div>
                 </div>
+                <?php if (!empty($breakingNews)) { ?>
                     <div class="col-lg-12">
                         <div class="news-tracker-wrap">
                             <h6><span>خبر فوری:</span> <a href=""></a></h6>
                         </div>
                     </div>
+                <?php } ?>
             </div>
         </div>
     </section>
@@ -28,106 +30,119 @@ $this->inclue('app.layouts.header');
                     <!-- Start latest-post Area -->
                     <div class="latest-post-wrap">
                         <h4 class="cat-title">آخرین اخبار</h4>
+                        <?php foreach ($categoryPosts as $categoryPost) { ?>
                             <div class="single-latest-post row align-items-center">
                                 <div class="col-lg-5 post-left">
                                     <div class="feature-img relative">
                                         <div class="overlay overlay-bg"></div>
-                                        <img class="img-fluid" src="" alt="">
+                                        <img class="img-fluid" src="<?= $this->asset($categoryPost['image']) ?>" alt="">
                                     </div>
                                     <ul class="tags">
-                                        <li><a href="#"></li>
+                                        <li><a href="#"><?= $categoryPost['category'] ?></li>
                                     </ul>
                                 </div>
                                 <div class="col-lg-7 post-right">
-                                    <a href="">
-                                        <h4></h4>
+                                    <a href="<?= $this->url('show-post/' . $categoryPost['id']) ?>">
+                                        <h4><?= $categoryPost['title'] ?></h4>
                                     </a>
                                     <ul class="meta">
-                                        <li><a href="#"><span class="lnr lnr-user"></span></a></li>
-                                        <li><a href="#"><span class="lnr lnr-calendar-full"></span></a></li>
-                                        <li><a href="#"><span class="lnr lnr-bubble"></span></a></li>
+                                        <li><a href="#"><span
+                                                        class="lnr lnr-user"><?= $categoryPost['user_name'] ?></span></a>
+                                        </li>
+                                        <li><a href="#"><?= convertToJalaliDate($categoryPost['created_at']) ?><span
+                                                        class="lnr lnr-calendar-full"></span></a></li>
+                                        <li><a href="#"><?= $categoryPost['comments_count'] ?><span
+                                                        class="lnr lnr-bubble"></span></a></li>
                                     </ul>
                                 </div>
                             </div>
+                        <?php } ?>
                     </div>
                     <!-- End latest-post Area -->
-
-                        <!-- Start banner-ads Area -->
-                        <div class="col-lg-12 ad-widget-wrap mt-30 mb-30">
-                            <img class="img-fluid" src="" alt="">
-                        </div>
+                    <!-- Start banner-ads Area -->
+                    <?php if(!empty($banner)) { ?>
+                    <div class="col-lg-12 ad-widget-wrap mt-30 mb-30">
+                        <img class="img-fluid" src="<?= $this->asset($banner['image']) ?>" alt="">
+                    </div>
+                    <?php } ?>
                     <!-- End banner-ads Area -->
                     <!-- Start popular-post Area -->
                     <div class="popular-post-wrap">
                         <h4 class="title">اخبار پربازدید</h4>
-                            <div class="feature-post relative">
-                                <div class="feature-img relative">
-                                    <div class="overlay overlay-bg"></div>
-                                    <img class="img-fluid" src="" alt="">
+                        <?php if(isset($popularPosts[0])) { ?>
+                        <div class="feature-post relative">
+                            <div class="feature-img relative">
+                                <div class="overlay overlay-bg"></div>
+                                <img class="img-fluid" src="<?= $this->asset($popularPosts[0]['image']) ?>" alt="">
+                            </div>
+                            <div class="details">
+                                <ul class="tags">
+                                    <li><a href="#"><?= $popularPosts[0]['category'] ?></a></li>
+                                </ul>
+                                <a href="<?= $this->url('show-post/' . $popularPosts[0]['id']) ?>">
+                                    <h3><?= $popularPosts[0]['title'] ?></h3>
+                                </a>
+                                <ul class="meta">
+                                    <li><a href="#"><span class="lnr lnr-user"></span><?= $popularPosts[0]['user_name'] ?></a></li>
+                                    <li><a href="#"><?= convertToJalaliDate($popularPosts[0]['created_at']) ?><span class="lnr lnr-calendar-full"></span></a></li>
+                                    <li><a href="#"><?= $popularPosts[0]['comments_count'] ?><span class="lnr lnr-bubble"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php } ?>
+                        <div class="row mt-20 medium-gutters">
+                            <?php if(isset($popularPosts[1])) { ?>
+                            <div class="col-lg-6 single-popular-post">
+                                <div class="feature-img-wrap relative">
+                                    <div class="feature-img relative">
+                                        <div class="overlay overlay-bg"></div>
+                                        <img class="img-fluid" src="<?= $popularPosts[1]['image'] ?>" alt="">
+                                    </div>
+                                    <ul class="tags">
+                                        <li><a href="#"><?= $popularPosts[1]['category'] ?></a></li>
+                                    </ul>
                                 </div>
                                 <div class="details">
-                                    <ul class="tags">
-                                        <li><a href="#"></a></li>
-                                    </ul>
-                                    <a href="">
-                                        <h3></h3>
+                                    <a href="<?= $this->url('show-post/'. $popularPosts[1]['id']) ?>">
+                                        <h4><?= $popularPosts[1]['title'] ?></h4>
                                     </a>
                                     <ul class="meta">
-                                        <li><a href="#"><span class="lnr lnr-user"></span></a></li>
+                                        <li><a href="#"><span class="lnr lnr-user"></span><?= $popularPosts[1]['user_name'] ?></a></li>
                                         <li><a href="#"><span class="lnr lnr-calendar-full"></span></a></li>
                                         <li><a href="#"><span class="lnr lnr-bubble"></span></a></li>
                                     </ul>
+                                    <p class="excert">
+                                        خلاصه متن خبر
+                                    </p>
                                 </div>
                             </div>
-
-                        <div class="row mt-20 medium-gutters">
-                                <div class="col-lg-6 single-popular-post">
-                                    <div class="feature-img-wrap relative">
-                                        <div class="feature-img relative">
-                                            <div class="overlay overlay-bg"></div>
-                                            <img class="img-fluid" src="" alt="">
-                                        </div>
-                                        <ul class="tags">
-                                            <li><a href="#"></a></li>
-                                        </ul>
+                            <?php }
+                            if(isset($popularPosts[2])){ ?>
+                            <div class="col-lg-6 single-popular-post">
+                                <div class="feature-img-wrap relative">
+                                    <div class="feature-img relative">
+                                        <div class="overlay overlay-bg"></div>
+                                        <img class="img-fluid" src="<?= $popularPosts[2]['image'] ?>" alt="">
                                     </div>
-                                    <div class="details">
-                                        <a href="">
-                                            <h4></h4>
-                                        </a>
-                                        <ul class="meta">
-                                            <li><a href="#"><span class="lnr lnr-user"></span></a></li>
-                                            <li><a href="#"><span class="lnr lnr-calendar-full"></span></a></li>
-                                            <li><a href="#"><span class="lnr lnr-bubble"></span></a></li>
-                                        </ul>
-                                        <p class="excert">
-                                            خلاصه متن خبر
-                                        </p>
-                                    </div>
+                                    <ul class="tags">
+                                        <li><a href="<?= $this->url('show-post/'. $popularPosts[2]['id']) ?>"></a></li>
+                                    </ul>
                                 </div>
-                                <div class="col-lg-6 single-popular-post">
-                                    <div class="feature-img-wrap relative">
-                                        <div class="feature-img relative">
-                                            <div class="overlay overlay-bg"></div>
-                                            <img class="img-fluid" src="" alt="">
-                                        </div>
-                                        <ul class="tags">
-                                            <li><a href=""></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="details">
-                                        <a href="image-post.html">
-                                        </a>
-                                        <ul class="meta">
-                                            <li><a href="#"><span class="lnr lnr-user"></span></a></li>
-                                            <li><a href="#"><span class="lnr lnr-calendar-full"></span></a></li>
-                                            <li><a href="#"><span class="lnr lnr-bubble"></span></a></li>
-                                        </ul>
-                                        <p class="excert">
-                                            خلاصه متن خبر
-                                    </div>
+                                <div class="details">
+                                    <a href="image-post.html">
+                                        <?= $popularPosts[2]['title'] ?>
+                                    </a>
+                                    <ul class="meta">
+                                        <li><a href="#"><span class="lnr lnr-user"></span><?= $popularPosts[2]['user_name'] ?>2</a></li>
+                                        <li><a href="#"><?= convertToJalaliDate($popularPosts[2]['created_at']) ?><span class="lnr lnr-calendar-full"></span></a></li>
+                                        <li><a href="#"><?= $popularPosts[2]['comments_count'] ?><span class="lnr lnr-bubble"></span></a></li>
+                                    </ul>
+                                    <p class="excert">
+                                        خلاصه متن خبر
                                 </div>
+                            </div>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
                 <?php

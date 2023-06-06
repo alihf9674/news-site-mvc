@@ -46,7 +46,8 @@ class Home extends Controller
         $popularPosts = Post::getPupolarPosts();
         $mostCommentPosts = Post::getMostCommentedPosts();
         $category = Category::find($id);
-        $this->view('app.category', compact('setting', 'category', 'popularPosts', 'breakingNews', 'banner', 'setting', 'mostCommentPosts', 'menus', 'topSelectedPosts'));
+        $categoryPosts = Post::getCategoryPosts($id);
+        $this->view('app.category', compact('setting', 'category', 'popularPosts', 'breakingNews', 'banner', 'setting', 'mostCommentPosts', 'menus', 'topSelectedPosts', 'categoryPosts'));
     }
 
     public function storeComment()

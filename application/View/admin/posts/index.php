@@ -49,7 +49,7 @@ $this->include('admin.layouts.sidebar');
                     <?= $post['user_name'] ?>
                 </td>
                 <td>
-                    <?= $post['category_name'] ?>
+                    <?= $post['category'] ?>
                 </td>
                 <td><img style="width: 80px;" src="<?= $this->asset($post['image']) ?>" alt="image post"></td>
                 <td style="width: 25rem;">
