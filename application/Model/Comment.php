@@ -37,7 +37,7 @@ class Comment extends Model
         FROM `comments` WHERE `id` = ?', [$id])->fetch();
     }
 
-    public function getApprovedPostsMethod($id)
+    public function getApprovedCommentsMethod($id)
     {
         return $this->selectMethod('SELECT *, 
         (SELECT `user_name` FROM `users` WHERE `users`.`id` = `comments`.`user_id`)AS user_name 

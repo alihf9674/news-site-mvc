@@ -9,5 +9,4 @@ class Response extends Header
         parent::setHeaders($status_code);
         return json_encode(['data' => $data]);
     }
-
 }

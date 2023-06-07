@@ -13,22 +13,24 @@ $this->include('app.layouts.header');
                         <div class="single-post-wrap">
                             <div class="feature-img-thumb relative">
                                 <div class="overlay overlay-bg"></div>
-                                <img class="img-fluid" src="" alt="">
+                                <img class="img-fluid" src="<?= $this->asset($post['image']) ?>" alt="">
                             </div>
                             <div class="content-wrap">
                                 <ul class="tags mt-10">
-                                    <li><a href="#"></a></li>
+                                    <li><a href="#"><?= $post['category'] ?></a></li>
                                 </ul>
                                 <a href="#">
-                                    <h3></h3>
+                                    <h3><?= $post['image'] ?></h3>
                                 </a>
                                 <ul class="meta pb-20">
-                                    <li><a href="#"><span class="lnr lnr-user"></span></a></li>
-                                    <li><a href="#"><span class="lnr lnr-calendar-full"></span></a></li>
-                                    <li><a href="#"><span class="lnr lnr-bubble"></span></a></li>
+                                    <li><a href="#"><span class="lnr lnr-user"></span><?= $post['username'] ?></a></li>
+                                    <li><a href="#"><?= convertToJalaliDate($post['created_at']) ?><span
+                                                    class="lnr lnr-calendar-full"></span></a></li>
+                                    <li><a href="#"><?= $post['comments_count'] ?><span
+                                                    class="lnr lnr-bubble"></span></a></li>
                                 </ul>
                                 <p>
-
+                                    <?= $post['body'] ?>
                                 </p>
                                 <div class="navigation-wrap justify-content-between d-flex">
                                     <a class="prev" href="#"><span class="lnr lnr-arrow-right"></span>خبر بعدی</a>
@@ -38,35 +40,37 @@ $this->include('app.layouts.header');
                                     <div class="container">
                                         <div class="row flex-column">
                                             <h6>نظرات</h6>
+                                            <?php foreach ($comments as $comment) { ?>
                                                 <div class="comment-list">
                                                     <div class="single-comment justify-content-between d-flex">
                                                         <div class="user justify-content-between d-flex">
                                                             <div class="desc">
-                                                                <h5><a href="#"></a></h5>
-                                                                <p class="date mt-3"></p>
-                                                                <p class="comment">
-
-                                                                </p>
+                                                                <h5><a href="#"><?= $comment['user_name'] ?></a></h5>
+                                                                <p class="date mt-3"><?= convertToJalaliDate($comment['created_at']) ?></p>
+                                                                <p class="comment"> <?= $comment['comment'] ?> </p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                                <div class="comment-form">
-                                    <h4>درج نظر جدید</h4>
-                                    <form action="" method="post">
-                                        <div class="form-group">
-                                            <textarea class="form-control mb-10" rows="5" name="comment" placeholder="متن نظر" onfocus="this.placeholder = ''" onblur="this.placeholder = 'متن نظر'" required=""></textarea>
-                                        </div>
-                                        <button type="button" class="primary-btn text-uppercase">ارسال</button>
-                                    </form>
-                                </div>
-                                <p> برای ثبت نظر ابتدا وارد حساب کاربری خود شوید </p>
-                                <a href="" class="btn btn-success">ورود</a>
-                                <a href="" class="btn btn-info">ثبت نام</a>
+                            <div class="comment-form">
+                                <h4>درج نظر جدید</h4>
+                                <form action="" method="post">
+                                    <div class="form-group">
+                                        <textarea class="form-control mb-10" rows="5" name="comment"
+                                                  placeholder="متن نظر" onfocus="this.placeholder = ''"
+                                                  onblur="this.placeholder = 'متن نظر'" required=""></textarea>
+                                    </div>
+                                    <button type="button" class="primary-btn text-uppercase">ارسال</button>
+                                </form>
+                            </div>
+                            <p> برای ثبت نظر ابتدا وارد حساب کاربری خود شوید </p>
+                            <a href="" class="btn btn-success">ورود</a>
+                            <a href="" class="btn btn-info">ثبت نام</a>
                         </div>
                         <!-- End single-post Area -->
                     </div>

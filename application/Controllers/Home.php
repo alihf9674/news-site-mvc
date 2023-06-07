@@ -31,9 +31,9 @@ class Home extends Controller
         $banner = Banner::getLastBanner();
         $mostCommentPosts = Post::getMostCommentedPosts();
         $topSelectedPosts = Post::getTopSelectedPosts();
-        $approvedPosts = Comment::getApprovedPosts();
+        $comments = Comment::getApprovedComments();
         $post = Post::findDetailsPost($id);
-        $this->view('app.show', compact('topSelectedPosts', 'setting', 'menus', 'banner', 'mostCommentPosts', 'approvedPosts', 'post'));
+        $this->view('app.show', compact('topSelectedPosts', 'setting', 'menus', 'banner', 'mostCommentPosts', 'comments', 'post'));
     }
 
     public function category($id)
