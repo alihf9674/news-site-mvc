@@ -8,6 +8,7 @@ use Application\Model\Comment;
 use Application\Model\Menu;
 use Application\Model\Post;
 use Application\Model\Setting;
+use System\Auth\Auth;
 
 class Home extends Controller
 {
@@ -50,8 +51,12 @@ class Home extends Controller
         $this->view('app.category', compact('setting', 'category', 'popularPosts', 'breakingNews', 'banner', 'setting', 'mostCommentPosts', 'menus', 'topSelectedPosts', 'categoryPosts'));
     }
 
-    public function storeComment()
+    public function storeComment($request, $post_id)
     {
-
+        if (!is_null(Auth::user())) {
+            Comment::insert('comments', ['user_id', 'post_id', 'comment'], [AUth::user()['id'], $post_id, $request['comment']]);
+            $this->back();
+        }
+        $this->back();
     }
 }

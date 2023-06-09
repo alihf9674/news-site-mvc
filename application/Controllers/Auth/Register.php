@@ -30,7 +30,6 @@ class Register extends Controller
             $this->setWarningFlashMessage('لطفا فرمت ایمیل را به طور صحیح وارد کنید.');
 
         $user = UserModel::findUserByEmail($request['user_email']);
-
         if ($user)
             $this->setWarningFlashMessage('کاربر با این ایمیل در سیستم ثبت شده است لطفا به صفحه ورود بروید.');
         else {

@@ -16,7 +16,6 @@ class Auth
 
     private function userMethod()
     {
-
         if (!Session::get('user'))
             return $this->redirect($this->redirectTo);
         $user = User::find(Session::get('user'));
@@ -24,7 +23,6 @@ class Auth
             Session::unset('user');
             return $this->redirect($this->redirectTo);
         } else
-
             return $user;
     }
 

@@ -57,20 +57,21 @@ $this->include('app.layouts.header');
                                     </div>
                                 </div>
                             </div>
-                            <div class="comment-form">
-                                <h4>درج نظر جدید</h4>
-                                <form action="" method="post">
-                                    <div class="form-group">
-                                        <textarea class="form-control mb-10" rows="5" name="comment"
-                                                  placeholder="متن نظر" onfocus="this.placeholder = ''"
-                                                  onblur="this.placeholder = 'متن نظر'" required=""></textarea>
-                                    </div>
-                                    <button type="button" class="primary-btn text-uppercase">ارسال</button>
-                                </form>
-                            </div>
+                            <?php if (\System\Auth\Auth::ifCheckLogin()) { ?>
+                                <div class="comment-form">
+                                    <h4>درج نظر جدید</h4>
+                                    <form action="<?= $this->url('comment-store/' . $categoryPosts['id']) ?>" method="post">
+                                        <div class="form-group">
+                                        <textarea class="form-control mb-10" rows="5" name="comment" placeholder="متن نظر" onfocus="this.placeholder = ''" onblur="this.placeholder = 'متن نظر'" required=""></textarea>
+                                        </div>
+                                        <button type="button" class="primary-btn text-uppercase">ارسال</button>
+                                    </form>
+                                </div>
+                            <?php } else { ?>
                             <p> برای ثبت نظر ابتدا وارد حساب کاربری خود شوید </p>
-                            <a href="" class="btn btn-success">ورود</a>
-                            <a href="" class="btn btn-info">ثبت نام</a>
+                            <a href="<?= $this->url('login') ?>" class="btn btn-success">ورود</a>
+                            <a href="<?= $this->url('register') ?>" class="btn btn-info">ثبت نام</a>
+                        <?php }  ?>
                         </div>
                         <!-- End single-post Area -->
                     </div>
