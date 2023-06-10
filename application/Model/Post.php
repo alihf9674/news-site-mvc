@@ -13,6 +13,31 @@ class Post extends Model
             LEFT JOIN `users` ON `users`.`id` = `posts`.`user_id` ORDER BY `id` DESC')->fetchAll();
     }
 
+    public function getPostsCount()
+    {
+        return $this->selectMethod('SELECT COUNT(*) FROM `posts')->fetch();
+    }
+
+    public function getMostViewedPost()
+    {
+        return $this->selectMethod('SELECT * FROM `posts` ORDER BY `view` DESC LIMIT 0,5')->fetchAll();
+    }
+
+    public function getPostsView()
+    {
+        return $this->selectMethod('SELECT SUM(`view`) FROM `posts`')->fetch();
+    }
+
+    public function getMostCommentedPosts()
+    {
+        return $this->selectMethod('SELECT `posts`.`id`, `posts`.`title`, COUNT(`comments`.`post_id`) AS comment_count FROM `posts`
+          LEFT JOIN `comments` ON `posts`.`id` = `comments`.`post_id` 
+          GROUP BY `posts`.`id` ORDER BY comment_count DESC LIMIT 0,5')->fetchAll();
+    }
+    public function getLastComments(){
+        return $this->selectMethod('SELECT `comments`.`id`, `comments`.`comment`, `comments`.`status`, `users`.`username` FROM `comments`, `users` 
+          WHERE `comments`.`user_id` = `users`.`id` ORDER BY `comments`.`created_at` DESC LIMIT 0,5')->fetchAll();
+    }
     public function getTopSelectedPostsMethod()
     {
         return $this->selectMethod('SELECT `posts`.*, 
@@ -65,7 +90,7 @@ class Post extends Model
 
     public function getCategoryPostsMethod($cat_id)
     {
-            $this->selectMethod('SELECT `posts`.*, (SELECT COUNT(*)FROM `comments` WHERE `comments`.`post_id` = `posts`.`id`) AS comments_count,
+        $this->selectMethod('SELECT `posts`.*, (SELECT COUNT(*)FROM `comments` WHERE `comments`.`post_id` = `posts`.`id`) AS comments_count,
         (SELECT `username` FROM `users` WHERE `users`.`user_id` = `posts`.`user_id`) AS username,
         (SELECT `name` FROM `categories` WHERE `categories`.`category_id` = `posts`.`cat_id`) AS category
         FROM `posts` WHERE `cat_id` = ? ORDER BY `created_at` DESC LIMIT 0,6', [$cat_id])->fetchAll();

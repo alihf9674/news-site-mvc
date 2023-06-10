@@ -27,19 +27,6 @@
             altField: '#published_at',
         })
     });
-</script>
-
-<script>
-    $(window).on('load', function () {
-        $.ajax({
-            //url: '',
-            type: 'DELETE',
-            success: function(result) {
-                // Do something with the result
-            }
-        });
-    });
-</script>
 
 </body>
 

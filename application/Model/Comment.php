@@ -13,6 +13,19 @@ class Comment extends Model
         LEFT JOIN `users` ON `comments`.`user_id` = `users`.`id` ORDER BY `id` DESC')->fetchAll();
     }
 
+    public function getCommentsCount()
+    {
+        return $this->selectMethod('SELECT COUNT(*) FROM `comments`')->fetch();
+    }
+    public function getUnseenCommentsCount()
+    {
+        return $this->selectMethod('SELECT COUNT(*) FROM `comments` WHERE `status` = "unseen"')->fetch();
+    }
+    public function getApprovedCommentsCount()
+    {
+        return $this->selectMethod('SELECT COUNT(*) FROM `comments` WHERE `status` = "approved"')->fetch();
+    }
+
     public function getUnseenCommentsMethod()
     {
         return $this->selectMethod('SELECT * FROM `comments` WHERE `status` = ?', ['unseen'])->fetchAll();
