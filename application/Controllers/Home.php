@@ -21,7 +21,7 @@ class Home extends Controller
         $lastPosts = Post::getLastPosts();
         $banner = Banner::getLastBanner();
         $popularPosts = Post::getPupolarPosts();
-        $mostCommentPosts = Post::getMostCommentedPosts();
+        $mostCommentPosts = Post::getCommentCountPosts();
         $this->view('app.index', compact('setting', 'menus', 'topSelectedPosts', 'breakingNews', 'lastPosts', 'mostCommentPosts', 'banner', 'popularPosts'));
     }
 
@@ -30,7 +30,7 @@ class Home extends Controller
         $setting = Setting::all();
         $menus = Menu::getParentMenus();
         $banner = Banner::getLastBanner();
-        $mostCommentPosts = Post::getMostCommentedPosts();
+        $mostCommentPosts = Post::getCommentCountPosts();
         $topSelectedPosts = Post::getTopSelectedPosts();
         $comments = Comment::getApprovedComments();
         $post = Post::findDetailsPost($id);
@@ -45,7 +45,7 @@ class Home extends Controller
         $topSelectedPosts = Post::getTopSelectedPosts();
         $breakingNews = Post::getBreakingNews();
         $popularPosts = Post::getPupolarPosts();
-        $mostCommentPosts = Post::getMostCommentedPosts();
+        $mostCommentPosts = Post::getCommentCountPosts();
         $category = Category::find($id);
         $categoryPosts = Post::getCategoryPosts($id);
         $this->view('app.category', compact('setting', 'category', 'popularPosts', 'breakingNews', 'banner', 'setting', 'mostCommentPosts', 'menus', 'topSelectedPosts', 'categoryPosts'));

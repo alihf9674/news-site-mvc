@@ -6,7 +6,7 @@ class Category extends Model
 {
     protected $tableName = "`categories`";
 
-    public function getCategoriesCount()
+    public function getCategoriesCountMethod()
     {
         return $this->selectMethod('SELECT COUNT(*) FROM `categories`')->fetch();
     }

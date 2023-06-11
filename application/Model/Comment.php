@@ -13,17 +13,25 @@ class Comment extends Model
         LEFT JOIN `users` ON `comments`.`user_id` = `users`.`id` ORDER BY `id` DESC')->fetchAll();
     }
 
-    public function getCommentsCount()
+    public function getCommentsCountMethod()
     {
         return $this->selectMethod('SELECT COUNT(*) FROM `comments`')->fetch();
     }
-    public function getUnseenCommentsCount()
+
+    public function getUnseenCommentsCountMethod()
     {
         return $this->selectMethod('SELECT COUNT(*) FROM `comments` WHERE `status` = "unseen"')->fetch();
     }
-    public function getApprovedCommentsCount()
+
+    public function getApprovedCommentsCountMethod()
     {
         return $this->selectMethod('SELECT COUNT(*) FROM `comments` WHERE `status` = "approved"')->fetch();
+    }
+
+    public function getLastCommentsMethod()
+    {
+        return $this->selectMethod('SELECT `comments`.`id`, `comments`.`comment`, `comments`.`status`, `users`.`username` FROM `comments`, `users` 
+        WHERE `comments`.`user_id` = `users`.`id` ORDER BY `comments`.`created_at` DESC LIMIT 0,5')->fetchAll();
     }
 
     public function getUnseenCommentsMethod()
@@ -41,7 +49,8 @@ class Comment extends Model
             $this->updateMethod('comments', $id, ['status'], ['seen']);
     }
 
-    public function getCommentMethod($id)
+    public
+    function getCommentMethod($id)
     {
         return $this->selectMethod('SELECT `comments`.*, 
        (SELECT `title` FROM `posts` WHERE `comments`.`post_id` = `posts`.`id`)AS post_titles , 
@@ -50,7 +59,8 @@ class Comment extends Model
         FROM `comments` WHERE `id` = ?', [$id])->fetch();
     }
 
-    public function getApprovedCommentsMethod($id)
+    public
+    function getApprovedCommentsMethod($id)
     {
         return $this->selectMethod('SELECT *, 
         (SELECT `user_name` FROM `users` WHERE `users`.`id` = `comments`.`user_id`)AS user_name 

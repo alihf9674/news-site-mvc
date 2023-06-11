@@ -11,12 +11,12 @@ class User extends Model
         return $this->selectMethod('SELECT * FROM `users` WHERE `user_email` = ?', [$email])->fetch();
     }
 
-    public function getAdminsCount()
+    public function getAdminsCountMethod()
     {
         return $this->selectMethod('SELECT COUNT(*) FROM `users` WHERE `permission` = "admin"')->fetch();
     }
 
-    public function getUsersCount()
+    public function getUsersCountMethod()
     {
         return $this->selectMethod('SELECT COUNT(*) FROM `users` WHERE `permission` = "user"')->fetch();
     }

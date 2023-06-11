@@ -13,31 +13,28 @@ class Post extends Model
             LEFT JOIN `users` ON `users`.`id` = `posts`.`user_id` ORDER BY `id` DESC')->fetchAll();
     }
 
-    public function getPostsCount()
+    public function getPostsCountMethod()
     {
         return $this->selectMethod('SELECT COUNT(*) FROM `posts')->fetch();
     }
 
-    public function getMostViewedPost()
+    public function getMostViewedPostMethod()
     {
         return $this->selectMethod('SELECT * FROM `posts` ORDER BY `view` DESC LIMIT 0,5')->fetchAll();
     }
 
-    public function getPostsView()
+    public function getPostsViewMethod()
     {
         return $this->selectMethod('SELECT SUM(`view`) FROM `posts`')->fetch();
     }
 
-    public function getMostCommentedPosts()
+    public function getMostCommentedPostsMethod()
     {
         return $this->selectMethod('SELECT `posts`.`id`, `posts`.`title`, COUNT(`comments`.`post_id`) AS comment_count FROM `posts`
           LEFT JOIN `comments` ON `posts`.`id` = `comments`.`post_id` 
           GROUP BY `posts`.`id` ORDER BY comment_count DESC LIMIT 0,5')->fetchAll();
     }
-    public function getLastComments(){
-        return $this->selectMethod('SELECT `comments`.`id`, `comments`.`comment`, `comments`.`status`, `users`.`username` FROM `comments`, `users` 
-          WHERE `comments`.`user_id` = `users`.`id` ORDER BY `comments`.`created_at` DESC LIMIT 0,5')->fetchAll();
-    }
+
     public function getTopSelectedPostsMethod()
     {
         return $this->selectMethod('SELECT `posts`.*, 
@@ -70,7 +67,7 @@ class Post extends Model
         FROM `posts` ORDER BY `view` DESC LIMIT 0,5')->fetchAll();
     }
 
-    public function getMostCommentedPostsMethod()
+    public function getCommentCountPostsMethod()
     {
         return $this->selectMethod('SELECT `posts`.*, 
         (SELECT COUNT(*) FROM `comments` WHERE `comments`.`post_id` = `posts`.`id`) As comments_count,
