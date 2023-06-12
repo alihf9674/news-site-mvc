@@ -2,6 +2,9 @@
 
 use System\Router\Web\Routing;
 
+//admin
+Routing::uri('admin', 'Application\Controllers\Admin\Admin', 'dashboard');
+
 //categories
 Routing::uri('admin/category', 'Application\Controllers\Admin\Category', 'index');
 Routing::uri('admin/category/create', 'Application\Controllers\Admin\Category', 'create');
