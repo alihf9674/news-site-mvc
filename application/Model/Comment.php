@@ -30,8 +30,8 @@ class Comment extends Model
 
     public function getLastCommentsMethod()
     {
-        return $this->selectMethod('SELECT `comments`.`id`, `comments`.`comment`, `comments`.`status`, `users`.`username` FROM `comments`, `users` 
-        WHERE `comments`.`user_id` = `users`.`id` ORDER BY `comments`.`created_at` DESC LIMIT 0,5')->fetchAll();
+        return $this->selectMethod('SELECT `comments`.`id`, `comments`.`comment`, `comments`.`status` FROM `comments`
+        LEFT JOIN `users` ON `comments`.`user_id` = `users`.`id` ORDER BY `comments`.`created_at` DESC LIMIT 0,5')->fetchAll();
     }
 
     public function getUnseenCommentsMethod()
