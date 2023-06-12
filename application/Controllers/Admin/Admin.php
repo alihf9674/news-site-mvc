@@ -31,8 +31,8 @@ class Admin extends Controller
         $commentUnseenCont = Comment::getUnseenCommentsCount();
         $commentApprovedCount = Comment::getApprovedCommentsCount();
         $mostViewedPosts = Post::getMostViewedPost();
-        $postCommentedPost = Post::getMostCommentedPosts();
+        $postCommentedPosts = Post::getMostCommentedPosts();
         $lastComments = Comment::getLastComments();
-        return $this->view('admin.dashboard.index', compact('postCount', 'categoryCount', 'commentCount', 'userCount', 'adminCount', 'postViews', 'commentUnseenCont', 'commentApprovedCount', 'mostViewedPosts', 'postCommentedPost', 'lastComments'));
+        return $this->view('admin.dashboard.index', compact('postCount', 'categoryCount', 'commentCount', 'userCount', 'adminCount', 'postViews', 'commentUnseenCont', 'commentApprovedCount', 'mostViewedPosts', 'postCommentedPosts', 'lastComments'));
     }
 }
