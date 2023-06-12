@@ -15,7 +15,7 @@ class Post extends Model
 
     public function getPostsCountMethod()
     {
-        return $this->selectMethod('SELECT COUNT(*) FROM `posts')->fetch();
+        return $this->selectMethod('SELECT COUNT(*) FROM `posts`')->fetch();
     }
 
     public function getMostViewedPostMethod()
